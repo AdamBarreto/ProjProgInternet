@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sábio Quiz – Cadastro</title>
+    <link rel="stylesheet" href="style.css">
+    
+
+</head>
+<body>
+
+    <header id="cabecalho">
+        <h1>Sábio Quiz</h1>
+    </header>
+
+    <nav id="menu-horizontal">
+        <ul>
+            <li><a href="index.html">Menu</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="cadastro.html">Cadastro</a></li>
+            <li><a href="scores.html">Scores</a></li>
+            <li><a href="gerenciamento.html">Questões</a></li>
+        </ul>
+    </nav>
+
+    <div id="fundoimg">
+        <main id="conteudo-principal">
+            <div class="cartao">
+                <div class="icone"></div>
+                <h2 class="cartao-titulo">Criar conta</h2>
+
+                <form id="formCadastro">
+                    <p class="secao-label">Dados Pessoais</p>
+
+                    <div class="campo">
+                        <label for="nome">Nome completo</label>
+                        <input type="text" id="nome" placeholder="Ex: João Silva">
+                        <span id="nomeErro" class="erro-mensagem" style="color: red; font-size: 14px;"></span>
+                    </div>
+
+                    <div class="campo">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" placeholder="Ex: joao@email.com">
+                        <span id="emailErro" class="erro-mensagem" style="color: red; font-size: 14px;"></span>
+                    </div>
+
+                    <hr class="divider">
+
+                    <p class="secao-label">Dados da Conta</p>
+
+                    <div class="campo">
+                        <label for="usuario">Nome de usuário (único)</label>
+                        <input type="text" id="usuario" placeholder="Ex: joao456_">
+                        <span class="dica">Só letras, números e _ (sem espaços)</span>
+                        <span id="usuarioErro" class="erro-mensagem" style="color: red; font-size: 14px;"></span>
+                    </div>
+
+                    <div class="campo">
+                        <label for="senha">Criar senha</label>
+                        <input type="password" id="senha" placeholder="Mínimo 8 caracteres">
+                        <span class="dica">
+                            <strong>A senha deve ter:</strong>
+                            <ul style="margin-left: 20px;">
+                                <li>Pelo menos 8 caracteres</li>
+                                <li>Pelo menos uma letra</li>
+                                <li>Pelo menos um número</li>
+                            </ul>
+                        </span>
+                        <span id="senhaErro" class="erro-mensagem" style="color: red; font-size: 14px;"></span>
+                    </div>
+
+                    <div class="campo">
+                        <label for="confirma-senha">Confirmar senha</label>
+                        <input type="password" id="confirma-senha" placeholder="Repita a senha">
+                        <span id="confirmaSenhaErro" class="erro-mensagem" style="color: red; font-size: 14px;"></span>
+                    </div>
+
+                    <button type="submit" class="btn-primario">Cadastrar</button>
+                </form>
+                
+
+                <div class="link-rodape">
+                    Já tem conta? <a href="login.html">Faça login aqui</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer id="rodape">
+        <p><strong>&copy; 2026 – Sábio Quiz</strong></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
