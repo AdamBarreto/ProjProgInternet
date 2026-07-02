@@ -181,14 +181,15 @@ function validarLogin() {
 
 
 function validarQuestao() {
-  const enunciado = document.getElementById('campoEnunciado')
+  const enunciado = document.getElementById('campoEnunciado');
+  const erro = document.getElementById('erroEnunciado');
 
-  if (enunciado.value === '') {
-    erro.innerText = 'Campo obrigatório.';
+  if (!enunciado || enunciado.value.trim() === '') {
+    if (erro) erro.innerText = 'Campo obrigatório.';
     return false;
   }
-  erro.innerText = '';
-  return True;
+  if (erro) erro.innerText = '';
+  return true;
 }
 
 function validarCampoAlternativa(idCampo, idErro, letra) {
@@ -224,23 +225,7 @@ function alternarTipo() {
     }
 }
 
-// 2. Validação simples do botão "Cadastrar"
-if (document.getElementById('formQuestao')) {
-    document.getElementById('formQuestao').addEventListener('submit', function(event) {
-        event.preventDefault(); // Não deixa recarregar a página
-        
-        const enunciado = document.getElementById('campoEnunciado').value;
-        const erro = document.getElementById('erroEnunciado');
-
-        if (enunciado.trim() === '') {
-            erro.innerText = 'Você precisa digitar o enunciado.';
-        } else {
-            erro.innerText = '';
-        }
-    });
-}
-
-// 2. Validação unificada do botão "Cadastrar"
+// Validação unificada do botão "Cadastrar"
 if (document.getElementById('formQuestao')) {
     document.getElementById('formQuestao').addEventListener('submit', function(event) {
         event.preventDefault(); // Impede o envio imediato
