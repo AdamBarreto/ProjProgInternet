@@ -278,7 +278,11 @@ if (document.getElementById('formQuestao')) {
 
 // Redirecionamento de botões
 if (document.getElementById('red-to-quiz')) {
-    document.getElementById('red-to-quiz').addEventListener('click', function() {
-        window.location.href = 'quiz.html';
-    });
+    const botao = document.getElementById("red-to-quiz");
+
+    function redirecionar() {
+        window.location.href = "hospedar.html";
+    }
+
+    botao.addEventListener("click", redirecionar);
 }
