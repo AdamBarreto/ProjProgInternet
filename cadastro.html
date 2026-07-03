@@ -18,7 +18,7 @@
             <li><a href="index.html">Menu</a></li>
             <li><a href="login.html">Login</a></li>
             <li><a href="cadastro.html">Cadastro</a></li>
-            <li><a href="scores.html">Scores</a></li>
+            <li><a href="desempenho.html">Desempenho</a></li>
             <li><a href="gerenciamento.html">Questões</a></li>
         </ul>
     </nav>
@@ -36,6 +36,16 @@
                         <label for="nome">Nome completo</label>
                         <input type="text" id="nome" placeholder="Ex: João Silva">
                         <span id="nomeErro" class="erro-mensagem" style="color: red; font-size: 14px;"></span>
+                    </div>
+
+                    <div class="campo">
+                    <label for="perfil">Tipo de perfil</label>
+                    <select id="perfil" name="perfil">
+                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="docente">Docente (Professor)</option>
+                    <option value="discente">Discente (Aluno)</option>
+                    </select>
+                    <span id="perfilErro" class="erro-mensagem" style="color: red; font-size: 14px;"></span>
                     </div>
 
                     <div class="campo">

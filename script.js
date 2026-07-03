@@ -11,6 +11,7 @@ if (document.getElementById('formCadastro')) {
     });
     document.getElementById('nome').addEventListener('blur', validarNome);
     document.getElementById('usuario').addEventListener('blur', validarUsuario);
+    document.getElementById('perfil').addEventListener('blur', validarPerfil);
     document.getElementById('email').addEventListener('blur', validarEmail);
     document.getElementById('senha').addEventListener('blur', validarSenha);
     document.getElementById('confirma-senha').addEventListener('blur', validarConfirmaSenha);
@@ -47,6 +48,19 @@ function validarNome() {
   const erro = document.getElementById('nomeErro');
   if (nome.trim() === '') {
       erro.innerText = 'O nome completo é obrigatório.';
+      campo.classList.add('invalido'); 
+      return false;
+  }
+  erro.innerText = '';
+  campo.classList.remove('invalido');
+  return true;
+}
+function validarPerfil() {
+  const campo = document.getElementById('perfil');
+  const nome = campo.value;
+  const erro = document.getElementById('perfilErro');
+  if (nome.trim() === '') {
+      erro.innerText = 'Selecione uma opção de perfil.';
       campo.classList.add('invalido'); 
       return false;
   }
@@ -138,11 +152,12 @@ function validarCadastro() {
   // (se usássemos "&&", a execução pararia no primeiro erro encontrado)
   let n = validarNome();
   let u = validarUsuario();
+  let p = validarPerfil();
   let e = validarEmail();
   let s = validarSenha();
   let c = validarConfirmaSenha();
 
-  return n && u && e && s && c;
+  return n && u && e && s && c && p;
 }
 
 
