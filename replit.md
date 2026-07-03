@@ -10,10 +10,10 @@ A Kahoot-inspired quiz web app written in Portuguese. Teachers can create and ma
 ## How to run
 
 ```bash
-python3 -m http.server 5000
+python3 server.py
 ```
 
-Then open the preview pane (port 5000).
+Then open the preview pane (port 5000). The custom server disables browser caching so updates appear immediately.
 
 ## User preferences
 
