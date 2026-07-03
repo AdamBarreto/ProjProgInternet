@@ -281,7 +281,7 @@ if (document.getElementById('red-to-quiz')) {
     const botao = document.getElementById("red-to-quiz");
 
     function redirecionar() {
-        window.location.href = "hospedar.html";
+        window.location.href = "quiz.html";
     }
 
     botao.addEventListener("click", redirecionar);
