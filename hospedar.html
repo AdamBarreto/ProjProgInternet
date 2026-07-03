@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sábio Quiz – Hospedar Partida</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header id="cabecalho">
+        <h1>Sábio Quiz</h1>
+    </header>
+
+    <nav id="menu-horizontal">
+        <ul>
+            <li><a href="index.html">Menu</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="cadastro.html">Cadastro</a></li>
+            <li><a href="desempenho.html">Desempenho</a></li>
+            <li><a href="gerenciamento.html">Questões</a></li>
+        </ul>
+    </nav>
+
+    <div id="fundoimg">
+        <main id="conteudo-principal">
+
+            <div class="cartao">
+                <h2 class="cartao-titulo">Hospedar uma Partida</h2>
+                <p class="cartao-subtitulo">Escolha um quiz e crie uma sala em tempo real para os alunos jogarem.</p>
+
+                <form id="formHospedar">
+                    <div class="campo">
+                        <label for="selecionar-quiz">Selecione o Quiz / Questionário</label>
+                        <select id="selecionar-quiz" class="input-estilizado" style="width: 100%; padding: 12px; border-radius: 6px; border: 2px solid #e1d5f5; font-size: 16px;">
+                            <option value="1">Conhecimentos Gerais (Capitais, História e Ciências)</option>
+                            <option value="2">História – Segunda Guerra Mundial</option>
+                            <option value="3">Geografia – Planetas do Sistema Solar</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label for="tempo-questao">Tempo limite por questão</label>
+                        <select id="tempo-questao" class="input-estilizado" style="width: 100%; padding: 12px; border-radius: 6px; border: 2px solid #e1d5f5; font-size: 16px;">
+                            <option value="10">10 segundos</option>
+                            <option value="20" selected>20 segundos</option>
+                            <option value="30">30 segundos</option>
+                            <option value="60">1 minuto</option>
+                        </select>
+                    </div>
+
+                    <div class="container-botoes-form" style="margin-top: 20px;">
+                        <button type="submit" class="btn-primario" style="width: 100%; text-align: center;">Criar Sala de Jogo</button>
+                    </div>
+                </form>
+
+                <div id="lobby-sala" style="display: none; margin-top: 35px; border-top: 2px dashed #e1d5f5; padding-top: 25px; text-align: center;">
+                    <h3 style="color: #5108a5; font-size: 22px; margin-bottom: 5px;">Sala Ativa com Sucesso!</h3>
+                    <p style="color: #666; font-size: 15px;">Instrua os jogadores a entrarem na tela de jogo e digitarem o código PIN abaixo:</p>
+
+                    <div id="pin-display" style="font-size: 42px; font-weight: bold; color: #ffffff; background-color: #5108a5; display: inline-block; padding: 15px 40px; border-radius: 12px; margin: 20px 0; letter-spacing: 3px; box-shadow: 0 4px 10px rgba(81, 8, 165, 0.2);">
+                        000 000
+                    </div>
+
+                    <div style="text-align: left; margin-top: 20px; background: #fdfbff; padding: 15px; border-radius: 8px; border: 1px solid #e1d5f5;">
+                        <p style="font-weight: 600; font-size: 16px; margin-bottom: 10px;">
+                            Jogadores na sala: <span id="contador-jogadores" style="color: #5108a5; font-weight: bold;">0</span>
+                        </p>
+
+                        <ul id="lista-jogadores" style="list-style: none; display: flex; flex-wrap: wrap; gap: 10px; padding: 0; min-height: 40px;">
+                            </ul>
+                    </div>
+
+                    <button id="btn-iniciar-quiz" class="btn-primario" style="margin-top: 25px; width: 100%; text-align: center;">
+                        Começar Partida!
+                    </button>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <footer id="rodape">
+        <p><strong>&copy; 2026 – Sábio Quiz</strong></p>
+    </footer>

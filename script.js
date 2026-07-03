@@ -274,3 +274,11 @@ if (document.getElementById('formQuestao')) {
         }
     });
 }
+
+
+// Redirecionamento de botões
+if (document.getElementById('red-to-quiz')) {
+    document.getElementById('red-to-quiz').addEventListener('click', function() {
+        window.location.href = 'quiz.html';
+    });
+}
