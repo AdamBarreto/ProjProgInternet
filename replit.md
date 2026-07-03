@@ -5,7 +5,7 @@ A Kahoot-inspired quiz web app written in Portuguese. Teachers can create and ma
 ## Stack
 
 - Pure HTML, CSS, and JavaScript (no build step)
-- Pages: `index.html` (home), `login.html`, `cadastro.html` (register), `quiz.html`, `questoes.html` (questions), `scores.html`, `gerenciamento.html` (management)
+- Pages: `index.html` (home), `login.html`, `cadastro.html` (register), `quiz.html`, `questoes.html` (questions), `desempenho.html` (performance), `gerenciamento.html` (management)
 
 ## How to run
 
