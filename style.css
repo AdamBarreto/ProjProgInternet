@@ -164,9 +164,6 @@ button, .btn-primario {
     transition: background 0.2s;
 }
 
-#botao {
-    
-}
 
 button:hover, .btn-primario:hover { background: var(--cor-primaria) }
 
@@ -376,4 +373,26 @@ textarea.invalido {
     font-weight: bold;
     color: #5108a5;
     margin-bottom: 10px;
+}
+
+
+/* Estilo para os botões de alternativa */
+.radio-oculto {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+/* Estilo do label quando o radio correspondente está marcado */
+.radio-oculto:checked + .alter {
+    background-color: var(--cor-primaria);
+    color: #ffffff;
+    border-color: var(--cor-primaria);
+    box-shadow: 0 5px 15px rgba(81, 8, 165, 0.2);
+}
+.alternativas.nao-respondida {
+    outline: 2px solid var(--cor-perigo);
+    outline-offset: 6px;
+    border-radius: 8px;
 }

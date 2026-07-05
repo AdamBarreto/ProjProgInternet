@@ -80,8 +80,8 @@
                     <div class="campo">
                         <label for="tipoQuestao">Tipo de Questão</label>
                         <select id="tipoQuestao" onchange="alternarTipo()" class="input-estilizado">
-                            <option value="alternativa">Alternativa</option>
-                            <option value="discursiva">Discursiva</option>
+                            <option value="4">4 Alternativas</option>
+                            <option value="2">2 Alternativas</option>
                         </select>
                     </div>
 
@@ -114,15 +114,18 @@
                             <input type="text" id="alt-b" placeholder="Texto">
                             <span id="altBErro" class="erro-mensagem" style="color:red;font-size:14px;"></span>
                         </div>
-                        <div class="campo">
-                            <label for="alt-c">Alternativa C</label>
-                            <input type="text" id="alt-c" placeholder="Texto">
-                            <span id="altCErro" class="erro-mensagem" style="color:red;font-size:14px;"></span>
-                        </div>
-                        <div class="campo">
-                            <label for="alt-d">Alternativa D</label>
-                            <input type="text" id="alt-d" placeholder="Texto">
-                            <span id="altDErro" class="erro-mensagem" style="color:red;font-size:14px;"></span>
+
+                        <div id="containerAlternativasCD">
+                            <div class="campo">
+                                <label for="alt-c">Alternativa C</label>
+                                <input type="text" id="alt-c" placeholder="Texto">
+                                <span id="altCErro" class="erro-mensagem" style="color:red;font-size:14px;"></span>
+                            </div>
+                            <div class="campo">
+                                <label for="alt-d">Alternativa D</label>
+                                <input type="text" id="alt-d" placeholder="Texto">
+                                <span id="altDErro" class="erro-mensagem" style="color:red;font-size:14px;"></span>
+                            </div>
                         </div>
                     </div>
 
@@ -131,15 +134,10 @@
                         <select id="resposta-correta" class="input-estilizado">
                             <option value="alt-a">Alternativa A</option>
                             <option value="alt-b">Alternativa B</option>
-                            <option value="alt-c">Alternativa C</option>
-                            <option value="alt-d">Alternativa D</option>
+                            <option value="alt-c" id="opt-gabarito-c">Alternativa C</option>
+                            <option value="alt-d" id="opt-gabarito-d">Alternativa D</option>
                         </select>
                         <span id="GabaritoErro" class="erro-mensagem" style="color:red;font-size:14px;"></span>
-                    </div>
-
-                    <div id="containerDiscursiva" class="campo" style="display: none;">
-                        <label>Nota:</label>
-                        <p style="font-size: 14px; color: #666;">Questões discursivas não exigem alternativas ou gabarito de múltipla escolha.</p>
                     </div>
 
                     <div class="container-botoes-form">

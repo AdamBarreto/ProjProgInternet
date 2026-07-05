@@ -224,19 +224,35 @@ function validarCampoAlternativa(idCampo, idErro, letra) {
 }
 
 function alternarTipo() {
-    const tipo = document.getElementById('tipoQuestao').value;
-    const divAlt = document.getElementById('containerAlternativas');
-    const divGabarito = document.getElementById('containerGabarito');
-    const divDisc = document.getElementById('containerDiscursiva');
+    const tipo = document.getElementById('tipoQuestao').value; // "2" ou "4"
+    const containerCD = document.getElementById('containerAlternativasCD');
+    const optC = document.getElementById('opt-gabarito-c');
+    const optD = document.getElementById('opt-gabarito-d');
+    const gabarito = document.getElementById('resposta-correta');
 
-    if (tipo === 'discursiva') {
-        if (divAlt) divAlt.style.display = 'none';
-        if (divGabarito) divGabarito.style.display = 'none';
-        if (divDisc) divDisc.style.display = 'block';
+    if (tipo === '2') {
+        // Esconde os campos C e D
+        containerCD.style.display = 'none';
+
+        optC.hidden = true;
+        optC.disabled = true;
+        optD.hidden = true;
+        optD.disabled = true;
+
+        // Se o gabarito estava marcado em C ou D, volta pra A
+        if (gabarito.value === 'alt-c' || gabarito.value === 'alt-d') {
+            gabarito.value = 'alt-a';
+        }
+        document.getElementById('altCErro').innerText = '';
+        document.getElementById('altDErro').innerText = '';
+
     } else {
-        if (divAlt) divAlt.style.display = 'block';
-        if (divGabarito) divGabarito.style.display = 'block';
-        if (divDisc) divDisc.style.display = 'none';
+        // tipo === '4'
+        containerCD.style.display = 'block';
+        optC.hidden = false;
+        optC.disabled = false;
+        optD.hidden = false;
+        optD.disabled = false;
     }
 }
 
@@ -258,13 +274,19 @@ if (document.getElementById('formQuestao')) {
             enunciadoValido = true;
         }
         let alternativasValidas = true;
-        if (tipo === 'alternativa') {
+        if (tipo === '4') {
             let a = validarCampoAlternativa('alt-a', 'altAErro', 'A');
             let b = validarCampoAlternativa('alt-b', 'altBErro', 'B');
             let c = validarCampoAlternativa('alt-c', 'altCErro', 'C');
             let d = validarCampoAlternativa('alt-d', 'altDErro', 'D');
             
             alternativasValidas = (a && b && c && d);
+        }
+        if (tipo === '2') {
+            let a = validarCampoAlternativa('alt-a', 'altAErro', 'A');
+            let b = validarCampoAlternativa('alt-b', 'altBErro', 'B');
+            
+            alternativasValidas = (a && b);
         }
 
         if (enunciadoValido && alternativasValidas) {
@@ -349,7 +371,6 @@ if (document.getElementById('formHospedar')) {
         event.preventDefault(); 
 
         const seletores = container.querySelectorAll('select');
-        
         let todasPreenchidas = true;
 
         seletores.forEach(function(select) {
@@ -364,6 +385,36 @@ if (document.getElementById('formHospedar')) {
         // Decisão baseada na verificação
         if (todasPreenchidas === false) {
             alert("Ainda falta selecionar questões para o quiz.");
+        } else {
+            alert("Sucesso!");
+        }
+    });
+}
+
+
+
+if (document.getElementById('formQuiz')) {
+    const formQuiz = document.getElementById('formQuiz');
+
+    formQuiz.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const questoes = formQuiz.querySelectorAll('.alternativas');
+        let tudoSelecionado = true;
+
+        questoes.forEach(function(questao) {
+            const marcado = questao.querySelector('input[type="radio"]:checked');
+
+            if (!marcado) {
+                tudoSelecionado = false;
+                questao.classList.add('nao-respondida');
+            } else {
+                questao.classList.remove('nao-respondida');
+            }
+        });
+
+        if (tudoSelecionado === false) {
+            alert("Responda todas as questões.");
         } else {
             alert("Sucesso!");
         }
