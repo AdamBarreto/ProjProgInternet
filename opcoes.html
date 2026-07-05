@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Sábio Quiz</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <header id="cabecalho">
+            <h1>Sábio Quiz</h1>
+        </header>
+
+        <nav id="menu-horizontal">
+            <ul>
+                <li><a href="index.html">Menu</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="cadastro.html">Cadastro</a></li>
+                <li><a href="desempenho.html">Desempenho</a></li>
+                <li><a href="gerenciamento.html">Questões</a></li>
+            </ul>
+        </nav>
+
+        <div id="fundoimg">
+            <main id="conteudo-principal">
+                <div
+                    class="cartao"
+                    style="text-align: center; margin-bottom: 25px"
+                >
+                    <h2 class="cartao-titulo">Painel de Acesso</h2>
+                    <p class="cartao-subtitulo">
+                        Seu perfil atual detectado:
+                        <span id="lbl-perfil" class="badge-perfil"
+                            >Carregando...</span
+                        >
+                    </p>
+                </div>
+
+
+                <div class="container-modos">
+                    <div class="cartao cartao-modo" id="modo-jogar">
+                        <h2 class="cartao-titulo" style="color: #5108a5">
+                            🎮 Jogar Quiz
+                        </h2>
+                        <p class="cartao-subtitulo" style="margin-top: 10px">
+                            Entre na partida e teste seus conhecimentos
+                            respondendo ao questionário.
+                        </p>
+                        <button
+                            class="btn-primario"
+                            id="red-to-quiz"
+                            style="
+                                margin-top: 20px;
+                                width: auto;
+                                padding: 10px 30px;
+                                cursor: pointer;
+                            "
+                        >
+                            Entrar
+                        </button>
+                    </div>
+
+                    <div class="cartao cartao-modo" id="modo-hospedar">
+                        <h2 class="cartao-titulo" style="color: #2e7d32">
+                            🏫 Hospedar Quiz
+                        </h2>
+                        <p class="cartao-subtitulo" style="margin-top: 10px">
+                            Selecione questões, defina pontuações e gere uma
+                            sala em tempo real.
+                        </p>
+                        <button
+                            class="btn-primario"
+                            id="red-to-hospedar"
+                            style="
+                                margin-top: 20px;
+                                width: auto;
+                                padding: 10px 30px;
+                                background-color: #2e7d32;
+                                cursor: pointer;
+                            "
+                        >
+                            Configurar
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <footer id="rodape">
+            <p><strong>&copy; 2026 – Sábio Quiz</strong></p>
+        </footer>
+        <script src="script.js"></script>
+    </body>
+</html>

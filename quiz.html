@@ -1,101 +1,109 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Sábio Quiz</title>
-        <link rel="stylesheet" href="style.css" />
-    </head>
-    <body>
-        <header id="cabecalho">
-            <h1>Sábio Quiz</h1>
-        </header>
+<head>
+    <meta charset="UTF-8">
+    <title>Sábio Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-        <nav id="menu-horizontal">
-            <ul>
-                <li><a href="index.html">Menu</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="cadastro.html">Cadastro</a></li>
-                <li><a href="desempenho.html">Desempenho</a></li>
-                <li><a href="gerenciamento.html">Questões</a></li>
-            </ul>
-        </nav>
+<!--Página a ser alterada !!!-->
+<!----------------------------->
 
-        <div id="fundoimg">
-            <main id="conteudo-principal">
-                <div
-                    class="cartao"
-                    style="text-align: center; margin-bottom: 25px"
-                >
-                    <h2 class="cartao-titulo">Painel de Acesso</h2>
-                    <p class="cartao-subtitulo">
-                        Seu perfil atual detectado:
-                        <span id="lbl-perfil" class="badge-perfil"
-                            >Carregando...</span
-                        >
-                    </p>
-                    <button
-                        id="btn-alternar-teste"
-                        class="btn-secundario"
-                        style="
-                            padding: 5px 15px;
-                            font-size: 12px;
-                            cursor: pointer;
-                        "
-                    >
-                        🔄 Alternar Perfil (Simular Aluno/Professor)
-                    </button>
+
+    <header id="cabecalho">
+        <h1>Sábio Quiz</h1> <!--estilizar o cabeçalho-->
+    </header>
+
+    <nav id="menu-horizontal">
+        <ul>
+             <li><a href="index.html">Menu</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="cadastro.html">Cadastro</a></li>
+            <li><a href="desempenho.html">Desempenho</a></li>
+            <li><a href="gerenciamento.html">Questões</a></li>
+        </ul>
+    </nav>
+
+    <div id="fundoimg">
+        <main id="conteudo-principal">
+
+            <article class="cartao">
+                <div class="alternativas">
+                    <h2 id="qu">Questão 1</h2>
+                    <h3 id="questao">Qual é a capital do Brasil? </h3>
+                    <button class="alter alt-a">A) Rio de Janeiro</button>
+                    <button class="alter alt-b">B) São Paulo</button>
+                    <button class="alter alt-c">C) Brasília</button>
+                    <button class="alter alt-d">D) Salvador</button>
                 </div>
+            </article>
 
-                <div class="container-modos">
-                    <div class="cartao cartao-modo" id="modo-jogar">
-                        <h2 class="cartao-titulo" style="color: #5108a5">
-                            🎮 Jogar Quiz
-                        </h2>
-                        <p class="cartao-subtitulo" style="margin-top: 10px">
-                            Entre na partida e teste seus conhecimentos
-                            respondendo ao questionário.
-                        </p>
-                        <button
-                            class="btn-primario"
-                            style="
-                                margin-top: 20px;
-                                width: auto;
-                                padding: 10px 30px;
-                                cursor: pointer;
-                            "
-                        >
-                            Entrar
-                        </button>
-                    </div>
+            <article class="cartao">
+            <div class="alternativas">
+                <h2 id="qu">Questão 2</h2>
+                <h3 id="questao">Em qual esporte são usadas essas luvas? </h3>
+                
+                <img src="Midia/hoquei.png" alt="Equipamento de Hóquei" class="imagem-quiz">
 
-                    <div class="cartao cartao-modo" id="modo-hospedar">
-                        <h2 class="cartao-titulo" style="color: #2e7d32">
-                            🏫 Hospedar Quiz
-                        </h2>
-                        <p class="cartao-subtitulo" style="margin-top: 10px">
-                            Selecione questões, defina pontuações e gere uma
-                            sala em tempo real.
-                        </p>
-                        <button
-                            class="btn-primario"
-                            id="btn-hospedar"
-                            style="
-                                margin-top: 20px;
-                                width: auto;
-                                padding: 10px 30px;
-                                background-color: #2e7d32;
-                                cursor: pointer;
-                            "
-                        >
-                            Configurar
-                        </button>
-                    </div>
+                <div class="container-botoes">
+                    <button class="alter alt-a">A) Grilo</button>
+                    <button class="alter alt-b">B) Pólo</button>
+                    <button class="alter alt-c">C) Hóquei</button>
+                    <button class="alter alt-d">D) Boxe</button>
                 </div>
-            </main>
-        </div>
+            </div>
+            </article>
 
-        <footer id="rodape">
-            <p><strong>&copy; 2026 – Sábio Quiz</strong></p>
-        </footer>
-    </body>
+            <article class="cartao">
+                <div class="alternativas">
+                    <h2 id="qu">Questão 3</h2>
+                    <h3 id="questao">Que palavra corresponde a palavra "mundo" em inglês? </h3>
+                    <button class="alter alt-a">A) Worth</button>
+                    <button class="alter alt-b">B) Word</button>
+                    <button class="alter alt-c">C) World</button>
+                    <button class="alter alt-d">D) Weapon</button>
+                </div>
+            </article>
+
+            <article class="cartao">
+                <div class="alternativas">
+                    <h2 id="qu">Questão 4</h2>
+                    <h3 id="questao">Qual dessas alternativas não corresponde a uma das 7 maravilhas do mundo moderno? </h3>
+                    <button class="alter alt-a">A) Cristo redentor</button>
+                    <button class="alter alt-b">B) Machu Picchu</button>
+                    <button class="alter alt-c">C) Torre Eiffel</button>
+                    <button class="alter alt-d">D) Grande Muralha da China </button>
+                </div>
+            </article>
+
+            <article class="cartao">
+            <div class="alternativas">
+                <h2 alt="qu">Questão 5</h2>
+                <h3 alt="questao"> Em que ano se iniciou a segunda guerra mundial?</h3>
+                <div class="container-discursiva">
+                    <input type="text" alt="resposta-usuario" placeholder="Digite sua resposta aqui..." autocomplete="off">
+                    <button id="btn-enviar">Enviar Resposta</button>
+                </div>
+            </div>
+            </article>
+
+            <article class="cartao">
+                <div class="alternativas">
+                    <h2 alt="qu">Questão 6 </h2>
+                    <h3 alt="questao">Plutão é um planeta anão.</h3>
+                    <button class="alter alt-a">A) Verdadeiro</button>
+                    <button class="alter alt-b">B) Falso</button>
+                </div>
+            </article>
+                
+        </main>
+    </div>
+
+    <footer id="rodape">
+        <p><strong>&copy; 2026 - Sábio Quiz</strong></p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
 </html>

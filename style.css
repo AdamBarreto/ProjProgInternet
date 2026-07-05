@@ -47,8 +47,6 @@ body {
   background-size: cover;
 }
 
-
-
 #rodape { 
     grid-area: footer; 
     background: var(--cor-segundaria); 

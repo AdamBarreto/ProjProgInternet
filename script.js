@@ -276,13 +276,96 @@ if (document.getElementById('formQuestao')) {
 }
 
 
+
 // Redirecionamento de botões
+if (document.getElementById('red-to-opcoes')) {
+    const botao = document.getElementById("red-to-opcoes");
+    function redirecionar() {
+        window.location.href = "opcoes.html";
+    }
+
+    botao.addEventListener("click", redirecionar);
+}
 if (document.getElementById('red-to-quiz')) {
     const botao = document.getElementById("red-to-quiz");
-
     function redirecionar() {
         window.location.href = "quiz.html";
     }
 
     botao.addEventListener("click", redirecionar);
+}
+if (document.getElementById('red-to-hospedar')) {
+    const botao = document.getElementById("red-to-hospedar");
+    function redirecionar() {
+        window.location.href = "hospedar.html";
+    }
+
+    botao.addEventListener("click", redirecionar);
+}
+
+
+
+// Adicionar questões à página de hospedagem
+if (document.getElementById('formHospedar')) {
+    const quant = document.getElementById('qtd-questao');
+    const container = document.getElementById('container-questoes');
+
+    // 1. GERAÇÃO DINÂMICA DOS CARDS (O que você já fez)
+    quant.addEventListener('input', function() {
+        const qtd = this.value;
+        const quantidade = parseInt(qtd);
+
+        container.innerHTML = '';
+
+        for (let i = 1; i <= quantidade; i++) {
+            // Injeta o html de cada card no container do hospedar.html
+            const cardHTML = `
+                <article class="cartao" style="margin-bottom: 20px;">
+                    <div class="alternativas">
+                        <h2>Posição ${i}</h2>
+                        <h3 style="font-size: 16px; color: #666; margin-bottom: 15px;">
+                            Selecione qual questão do seu banco ocupará este lugar no quiz.
+                        </h3>
+                        
+                        <div class="campo">
+                            <select class="input-estilizado" name="questao_posicao_${i}">
+                                <option value="">-- Escolha uma questão --</option>
+                                <option value="q1">Questão de Exemplo 1 (História)</option>
+                                <option value="q2">Questão de Exemplo 2 (Geografia)</option>
+                                <option value="q3">Questão de Exemplo 3 (Matemática)</option>
+                            </select>
+                        </div>
+                    </div>
+                </article>
+            `;
+            container.innerHTML += cardHTML;
+        }
+    });
+
+    // Verificação de formulário
+    const formHospedar = document.getElementById('formHospedar');
+    
+    formHospedar.addEventListener('submit', function(event) {
+        event.preventDefault(); 
+
+        const seletores = container.querySelectorAll('select');
+        
+        let todasPreenchidas = true;
+
+        seletores.forEach(function(select) {
+            if (select.value === '') {
+                todasPreenchidas = false;
+                select.style.borderColor = 'red'; 
+            } else {
+                select.style.borderColor = '#e1d5f5';
+            }
+        });
+
+        // Decisão baseada na verificação
+        if (todasPreenchidas === false) {
+            alert("Ainda falta selecionar questões para o quiz.");
+        } else {
+            alert("Sucesso!");
+        }
+    });
 }
