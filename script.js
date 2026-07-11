@@ -1,14 +1,19 @@
+// ============================================================================
+// CADASTRO
+// ============================================================================
+
 // Apenas roda o que for da página de Cadastro
 if (document.getElementById('formCadastro')) {
     document.getElementById('formCadastro').addEventListener('submit', function (event) {
-
         event.preventDefault();
+
         if (validarCadastro()) {
             alert("Cadastro realizado com sucesso!");
         } else {
             alert("Corrija os erros.");
         }
     });
+
     document.getElementById('nome').addEventListener('blur', validarNome);
     document.getElementById('usuario').addEventListener('blur', validarUsuario);
     document.getElementById('perfil').addEventListener('blur', validarPerfil);
@@ -16,6 +21,142 @@ if (document.getElementById('formCadastro')) {
     document.getElementById('senha').addEventListener('blur', validarSenha);
     document.getElementById('confirma-senha').addEventListener('blur', validarConfirmaSenha);
 }
+
+function validarNome() {
+    const campo = document.getElementById('nome');
+    const nome = campo.value;
+    const erro = document.getElementById('nomeErro');
+
+    if (nome.trim() === '') {
+        erro.innerText = 'O nome completo é obrigatório.';
+        campo.classList.add('invalido');
+        return false;
+    }
+
+    erro.innerText = '';
+    campo.classList.remove('invalido');
+    return true;
+}
+
+function validarPerfil() {
+    const campo = document.getElementById('perfil');
+    const nome = campo.value;
+    const erro = document.getElementById('perfilErro');
+
+    if (nome.trim() === '') {
+        erro.innerText = 'Selecione uma opção de perfil.';
+        campo.classList.add('invalido');
+        return false;
+    }
+
+    erro.innerText = '';
+    campo.classList.remove('invalido');
+    return true;
+}
+
+function validarUsuario() {
+    const campo = document.getElementById('usuario');
+    const usuario = campo.value;
+    const erro = document.getElementById('usuarioErro');
+
+    if (usuario.trim() === '') {
+        erro.innerText = 'O nome de usuário é obrigatório.';
+        campo.classList.add('invalido');
+        return false;
+    } else if (!/^[a-zA-Z0-9_]+$/.test(usuario)) {
+        erro.innerText = 'Use apenas letras, números e _ (sem espaços ou símbolos).';
+        return false;
+    }
+
+    erro.innerText = '';
+    campo.classList.remove('invalido');
+    return true;
+}
+
+function validarEmail() {
+    const campo = document.getElementById('email');
+    const email = campo.value;
+    const erro = document.getElementById('emailErro');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (email.trim() === '') {
+        erro.innerText = 'O e-mail é obrigatório.';
+        campo.classList.add('invalido');
+        return false;
+    } else if (!emailRegex.test(email)) {
+        erro.innerText = 'Insira um e-mail válido (ex: nome@dominio.com).';
+        return false;
+    }
+
+    erro.innerText = '';
+    campo.classList.remove('invalido');
+    return true;
+}
+
+function validarSenha() {
+    const campo = document.getElementById('senha');
+    const senha = campo.value;
+    const erro = document.getElementById('senhaErro');
+    const temLetra = /[a-zA-Z]/.test(senha);
+    const temNumero = /[0-9]/.test(senha);
+
+    if (senha === '') {
+        erro.innerText = 'A senha é obrigatória.';
+        campo.classList.add('invalido');
+        return false;
+    } else if (senha.length < 8) {
+        erro.innerText = 'A senha deve ter no mínimo 8 caracteres.';
+        campo.classList.remove('invalido');
+        return false;
+    } else if (!temLetra || !temNumero) {
+        erro.innerText = 'A senha deve conter pelo menos uma letra e um número.';
+        campo.classList.remove('invalido');
+        return false;
+    }
+
+    erro.innerText = '';
+    campo.classList.remove('invalido');
+    return true;
+}
+
+function validarConfirmaSenha() {
+    const campo = document.getElementById('senha');
+    const senha = campo.value;
+    const confirmaSenha = document.getElementById('confirma-senha').value;
+    const erro = document.getElementById('confirmaSenhaErro');
+
+    if (confirmaSenha === '') {
+        erro.innerText = 'Por favor, confirme sua senha.';
+        campo.classList.add('invalido');
+        return false;
+    } else if (senha !== confirmaSenha) {
+        erro.innerText = 'As senhas não coincidem.';
+        campo.classList.remove('invalido');
+        return false;
+    }
+
+    erro.innerText = '';
+    campo.classList.remove('invalido');
+    return true;
+}
+
+function validarCadastro() {
+    // Executa todas as funções. O operador "&" garante que TODAS rodem
+    // (se usássemos "&&", a execução pararia no primeiro erro encontrado)
+    let n = validarNome();
+    let u = validarUsuario();
+    let p = validarPerfil();
+    let e = validarEmail();
+    let s = validarSenha();
+    let c = validarConfirmaSenha();
+
+    return n && u && e && s && c && p;
+}
+
+
+// ============================================================================
+// LOGIN
+// ============================================================================
 
 if (document.getElementById('formLogin')) {
     const formLogin = document.getElementById('formLogin');
@@ -26,7 +167,7 @@ if (document.getElementById('formLogin')) {
 
     formLogin.addEventListener('submit', function (event) {
         event.preventDefault(); // Impede a página de recarregar
-        
+
         // Executa as duas validações antes de entrar
         let usuarioValido = validarUsuarioLogin();
         let senhaValida = validarSenhaLogin();
@@ -40,136 +181,15 @@ if (document.getElementById('formLogin')) {
     });
 }
 
-
-// CADASTRO
-function validarNome() {
-  const campo = document.getElementById('nome');
-  const nome = campo.value;
-  const erro = document.getElementById('nomeErro');
-  if (nome.trim() === '') {
-      erro.innerText = 'O nome completo é obrigatório.';
-      campo.classList.add('invalido'); 
-      return false;
-  }
-  erro.innerText = '';
-  campo.classList.remove('invalido');
-  return true;
-}
-function validarPerfil() {
-  const campo = document.getElementById('perfil');
-  const nome = campo.value;
-  const erro = document.getElementById('perfilErro');
-  if (nome.trim() === '') {
-      erro.innerText = 'Selecione uma opção de perfil.';
-      campo.classList.add('invalido'); 
-      return false;
-  }
-  erro.innerText = '';
-  campo.classList.remove('invalido');
-  return true;
-}
-function validarUsuario() {
-  const campo = document.getElementById('usuario');
-  const usuario = campo.value;
-  const erro = document.getElementById('usuarioErro');
-
-  if (usuario.trim() === '') {
-      erro.innerText = 'O nome de usuário é obrigatório.';
-      campo.classList.add('invalido'); 
-      return false;
-  } else if (!/^[a-zA-Z0-9_]+$/.test(usuario)) {
-      erro.innerText = 'Use apenas letras, números e _ (sem espaços ou símbolos).';
-      return false;
-  }
-  erro.innerText = '';
-  campo.classList.remove('invalido');
-  return true;
-}
-function validarEmail() {
-  const campo = document.getElementById('email');
-  const email = campo.value;
-  const erro = document.getElementById('emailErro');
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  if (email.trim() === '') {
-      erro.innerText = 'O e-mail é obrigatório.';
-      campo.classList.add('invalido'); 
-      return false;
-  } else if (!emailRegex.test(email)) {
-      erro.innerText = 'Insira um e-mail válido (ex: nome@dominio.com).';
-      return false;
-  }
-  erro.innerText = '';
-  campo.classList.remove('invalido');
-  return true;
-}
-function validarSenha() {
-  const campo = document.getElementById('senha');
-  const senha = campo.value;
-  const erro = document.getElementById('senhaErro');
-  const temLetra = /[a-zA-Z]/.test(senha);
-  const temNumero = /[0-9]/.test(senha);
-
-  if (senha === '') {
-      erro.innerText = 'A senha é obrigatória.';
-      campo.classList.add('invalido'); 
-      return false;
-  } else if (senha.length < 8) {
-      erro.innerText = 'A senha deve ter no mínimo 8 caracteres.';
-        campo.classList.remove('invalido');
-      return false;
-  } else if (!temLetra || !temNumero) {
-      erro.innerText = 'A senha deve conter pelo menos uma letra e um número.';
-        campo.classList.remove('invalido');
-      return false;
-  }
-  erro.innerText = '';
-  campo.classList.remove('invalido');
-  return true;
-
-}
-function validarConfirmaSenha() {
-  const campo = document.getElementById('senha');
-  const senha = campo.value;
-  const confirmaSenha = document.getElementById('confirma-senha').value;
-  const erro = document.getElementById('confirmaSenhaErro');
-
-  if (confirmaSenha === '') {
-      erro.innerText = 'Por favor, confirme sua senha.';
-      campo.classList.add('invalido'); 
-      return false;
-  } else if (senha !== confirmaSenha) {
-      erro.innerText = 'As senhas não coincidem.';
-        campo.classList.remove('invalido');
-      return false;
-  }
-  erro.innerText = '';
-  campo.classList.remove('invalido');
-  return true;
-}
-function validarCadastro() {
-  // Executa todas as funções. O operador "&" garante que TODAS rodem 
-  // (se usássemos "&&", a execução pararia no primeiro erro encontrado)
-  let n = validarNome();
-  let u = validarUsuario();
-  let p = validarPerfil();
-  let e = validarEmail();
-  let s = validarSenha();
-  let c = validarConfirmaSenha();
-
-  return n && u && e && s && c && p;
-}
-
-
-// LOGIN
 function validarUsuarioLogin() {
     const campo = document.getElementById('usuario');
     const erro = document.getElementById('usuarioErro');
-    
+
     if (campo.value.trim() === '') {
         erro.innerText = 'O nome de usuário é obrigatório.';
         return false;
     }
+
     erro.innerText = ''; // Limpa o erro se digitou algo
     return true;
 }
@@ -177,11 +197,12 @@ function validarUsuarioLogin() {
 function validarSenhaLogin() {
     const campo = document.getElementById('senha');
     const erro = document.getElementById('senhaErro');
-    
+
     if (campo.value === '') {
         erro.innerText = 'A senha é obrigatória.';
         return false;
     }
+
     erro.innerText = ''; // Limpa o erro se digitou algo
     return true;
 }
@@ -194,17 +215,21 @@ function validarLogin() {
 }
 
 
+// ============================================================================
+// GERENCIAMENTO DE QUESTÕES
+// ============================================================================
 
 function validarQuestao() {
-  const enunciado = document.getElementById('campoEnunciado');
-  const erro = document.getElementById('erroEnunciado');
+    const enunciado = document.getElementById('campoEnunciado');
+    const erro = document.getElementById('erroEnunciado');
 
-  if (!enunciado || enunciado.value.trim() === '') {
-    if (erro) erro.innerText = 'Campo obrigatório.';
-    return false;
-  }
-  if (erro) erro.innerText = '';
-  return true;
+    if (!enunciado || enunciado.value.trim() === '') {
+        if (erro) erro.innerText = 'Campo obrigatório.';
+        return false;
+    }
+
+    if (erro) erro.innerText = '';
+    return true;
 }
 
 function validarCampoAlternativa(idCampo, idErro, letra) {
@@ -218,7 +243,7 @@ function validarCampoAlternativa(idCampo, idErro, letra) {
         erro.innerText = 'A alternativa ' + letra + ' é obrigatória.';
         return false;
     }
-    
+
     erro.innerText = ''; // Limpa o erro se o usuário digitou algo
     return true;
 }
@@ -243,9 +268,9 @@ function alternarTipo() {
         if (gabarito.value === 'alt-c' || gabarito.value === 'alt-d') {
             gabarito.value = 'alt-a';
         }
+
         document.getElementById('altCErro').innerText = '';
         document.getElementById('altDErro').innerText = '';
-
     } else {
         // tipo === '4'
         containerCD.style.display = 'block';
@@ -258,9 +283,9 @@ function alternarTipo() {
 
 // Validação unificada do botão "Cadastrar"
 if (document.getElementById('formQuestao')) {
-    document.getElementById('formQuestao').addEventListener('submit', function(event) {
+    document.getElementById('formQuestao').addEventListener('submit', function (event) {
         event.preventDefault(); // Impede o envio imediato
-        
+
         const enunciado = document.getElementById('campoEnunciado');
         const erroEnunciado = document.getElementById('erroEnunciado');
         const tipo = document.getElementById('tipoQuestao').value;
@@ -273,19 +298,22 @@ if (document.getElementById('formQuestao')) {
             erroEnunciado.innerText = '';
             enunciadoValido = true;
         }
+
         let alternativasValidas = true;
+
         if (tipo === '4') {
             let a = validarCampoAlternativa('alt-a', 'altAErro', 'A');
             let b = validarCampoAlternativa('alt-b', 'altBErro', 'B');
             let c = validarCampoAlternativa('alt-c', 'altCErro', 'C');
             let d = validarCampoAlternativa('alt-d', 'altDErro', 'D');
-            
+
             alternativasValidas = (a && b && c && d);
         }
+
         if (tipo === '2') {
             let a = validarCampoAlternativa('alt-a', 'altAErro', 'A');
             let b = validarCampoAlternativa('alt-b', 'altBErro', 'B');
-            
+
             alternativasValidas = (a && b);
         }
 
@@ -298,26 +326,33 @@ if (document.getElementById('formQuestao')) {
 }
 
 
+// ============================================================================
+// REDIRECIONAMENTO DE BOTÕES
+// ============================================================================
 
-// Redirecionamento de botões
 if (document.getElementById('red-to-opcoes')) {
     const botao = document.getElementById("red-to-opcoes");
+
     function redirecionar() {
         window.location.href = "opcoes.html";
     }
 
     botao.addEventListener("click", redirecionar);
 }
+
 if (document.getElementById('red-to-quiz')) {
     const botao = document.getElementById("red-to-quiz");
+
     function redirecionar() {
         window.location.href = "quiz.html";
     }
 
     botao.addEventListener("click", redirecionar);
 }
+
 if (document.getElementById('red-to-hospedar')) {
     const botao = document.getElementById("red-to-hospedar");
+
     function redirecionar() {
         window.location.href = "hospedar.html";
     }
@@ -326,6 +361,9 @@ if (document.getElementById('red-to-hospedar')) {
 }
 
 
+// ============================================================================
+// HOSPEDAGEM DE PARTIDA
+// ============================================================================
 
 // Adicionar questões à página de hospedagem
 if (document.getElementById('formHospedar')) {
@@ -333,7 +371,7 @@ if (document.getElementById('formHospedar')) {
     const container = document.getElementById('container-questoes');
 
     // 1. GERAÇÃO DINÂMICA DOS CARDS (O que você já fez)
-    quant.addEventListener('input', function() {
+    quant.addEventListener('input', function () {
         const qtd = this.value;
         const quantidade = parseInt(qtd);
 
@@ -348,7 +386,7 @@ if (document.getElementById('formHospedar')) {
                         <h3 style="font-size: 16px; color: #666; margin-bottom: 15px;">
                             Selecione qual questão do seu banco ocupará este lugar no quiz.
                         </h3>
-                        
+
                         <div class="campo">
                             <select class="input-estilizado" name="questao_posicao_${i}">
                                 <option value="">-- Escolha uma questão --</option>
@@ -366,17 +404,21 @@ if (document.getElementById('formHospedar')) {
 
     // Verificação de formulário
     const formHospedar = document.getElementById('formHospedar');
-    
-    formHospedar.addEventListener('submit', function(event) {
-        event.preventDefault(); 
+
+    formHospedar.addEventListener('submit', function (event) {
+        event.preventDefault();
 
         const seletores = container.querySelectorAll('select');
         let todasPreenchidas = true;
 
-        seletores.forEach(function(select) {
+        if (seletores.length === 0) {
+            todasPreenchidas = false;
+        }
+
+        seletores.forEach(function (select) {
             if (select.value === '') {
                 todasPreenchidas = false;
-                select.style.borderColor = 'red'; 
+                select.style.borderColor = 'red';
             } else {
                 select.style.borderColor = '#e1d5f5';
             }
@@ -392,17 +434,20 @@ if (document.getElementById('formHospedar')) {
 }
 
 
+// ============================================================================
+// QUIZ (JOGO)
+// ============================================================================
 
 if (document.getElementById('formQuiz')) {
     const formQuiz = document.getElementById('formQuiz');
 
-    formQuiz.addEventListener('submit', function(event) {
+    formQuiz.addEventListener('submit', function (event) {
         event.preventDefault();
 
         const questoes = formQuiz.querySelectorAll('.alternativas');
         let tudoSelecionado = true;
 
-        questoes.forEach(function(questao) {
+        questoes.forEach(function (questao) {
             const marcado = questao.querySelector('input[type="radio"]:checked');
 
             if (!marcado) {
