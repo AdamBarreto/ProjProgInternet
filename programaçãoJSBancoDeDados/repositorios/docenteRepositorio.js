@@ -23,10 +23,10 @@ const DocenteRepositorio = {
         }
     },
 
-    buscarDocente: async (idDocente) => {
+    buscarById: async (id_docente) => {
         const resultado = await pool.query(
             'SELECT * FROM docente WHERE nome_usuario = $1',
-            [idDocente]
+            [id_docente]
         );
 
         return resultado.rows[0] || null;
@@ -39,22 +39,22 @@ const DocenteRepositorio = {
         return res.rows;
     },
 
-    atualizarDocente: async (nome_completo, idDocente, email, senha) => {;
+    atualizar: async (nome_completo, id_docente, email, senha) => {;
 
         const resultado = await pool.query(
             `UPDATE docente
              SET nome_completo = $1, nome_usuario = $2, email = $3, senha = $4
              WHERE id_docente = $5`,
-            [nome_completo, nome_usuario, email, senha, idDocente]
+            [nome_completo, nome_usuario, email, senha, id_docente]
         );
 
         return resultado.rowCount > 0;
     },
 
-    deletarDocente: async (idDocente) => {
+    deletar: async (id_docente) => {
         const resultado = await pool.query(
             'DELETE FROM docente WHERE id_docente = $1',
-            [idDocente]
+            [id_docente]
         );
 
         return resultado.rowCount > 0;

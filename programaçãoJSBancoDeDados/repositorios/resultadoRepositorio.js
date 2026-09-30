@@ -2,7 +2,7 @@ const pool = require('../conexao');
 
 const ResultadoRepositorio = {
 
-    criarResultado: async (id_quiz, id_aluno, acertos, tempo_conclusao) => {
+    criar: async (id_quiz, id_aluno, acertos, tempo_conclusao) => {
 
         const saida = await pool.query(
             `INSERT INTO resultado (id_quiz, id_aluno, acertos, tempo_conclusao)
@@ -18,30 +18,30 @@ const ResultadoRepositorio = {
     },
 
     //para o professor (tenho que ajeitar)
-    desempenhoQuiz: async (idQuiz) => {
+    buscarByQuiz: async (id_quiz) => {
         const resultado = await pool.query(
             `SELECT r.id_aluno, a.nome_completo, r.acertos, r.tempo_conclusao
              FROM resultado r
              INNER JOIN aluno a ON a.nome_usuario = r.id_aluno
              WHERE r.id_quiz = $1
              ORDER BY r.acertos DESC`,
-            [idQuiz]
+            [id_quiz]
         );
 
         return resultado.rows;
     },
 
     //resultados do aluno em quizes
-    resultadosAluno: async (idAluno) => {
+    buscarByAluno: async (id_aluno) => {
         const resultado = await pool.query(
             'SELECT * FROM resultado WHERE id_aluno = $1',
-            [idAluno]
+            [id_aluno]
         );
 
         return resultado.rows;
     },
 
-    verDesempenhoNoQuiz: async (id_aluno, id_quiz) => {
+    buscarByQuizByAluno: async (id_quiz, id_aluno) => {
         const resultado = await pool.query(
             `SELECT r.acertos, r.tempo_conclusao, q.disciplina, q.quantidade_questoes
             FROM resultado r

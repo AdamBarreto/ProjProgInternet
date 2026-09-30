@@ -24,10 +24,10 @@ const AlunoRepositorio = {
         }
     },
 
-    buscarAluno: async (idALuno) => {
+    buscarById: async (id_aluno) => {
         const resultado = await pool.query(
             'SELECT * FROM aluno WHERE nome_usuario = $1',
-            [idALuno]
+            [id_aluno]
         );
 
         return resultado.rows[0] || null;
@@ -40,10 +40,10 @@ const AlunoRepositorio = {
 	return res.rows;
     },
 
-    deletarAluno: async (idAluno) => {
+    deletarById: async (id_aluno) => {
         const resultado = await pool.query(
             'DELETE FROM aluno WHERE nome_usuario = $1',
-            [idAluno]
+            [id_aluno]
         );
 
         return resultado.rowCount > 0;

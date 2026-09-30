@@ -2,7 +2,7 @@ const pool = require('../conexao');
 
 const QuizRepositorio = {
 
-    criarQuiz: async (id_docente, disciplina, quantidade_questoes) => {
+    criar: async (id_docente, disciplina, quantidade_questoes) => {
 
         const resultado = await pool.query(
             `INSERT INTO quiz (id_docente, disciplina, quantidade_questoes)
@@ -14,25 +14,25 @@ const QuizRepositorio = {
         return resultado.rows[0].id_quiz;
     },
 
-    listarQuizzes: async () => {
+    listar: async () => {
         const resultado = await pool.query('SELECT * FROM quiz ORDER BY id_quiz DESC');
         return resultado.rows;
     },
 
-    listarQuizDocente: async (idDocente) => {
+    listarByDocente: async (id_docente) => {
         const resultado = await pool.query(
             'SELECT * FROM quiz WHERE id_docente = $1 ORDER BY id_quiz DESC',
-            [idDocente]
+            [id_docente]
         );
 
         return resultado.rows;
     },
 
     //provavelmente não vai ser usado
-    deletarQuiz: async (idQuiz) => {
+    deletar: async (id_quiz) => {
         const resultado = await pool.query(
             'DELETE FROM quiz WHERE id_quiz = $1',
-            [idQuiz]
+            [id_quiz]
         );
 
         return resultado.rowCount > 0;

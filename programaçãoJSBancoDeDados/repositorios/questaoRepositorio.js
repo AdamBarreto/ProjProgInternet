@@ -2,43 +2,43 @@ const pool = require('../conexao');
 
 const QuestaoRepositorio = {
 
-    criarQuestao: async (id_docente, enunciado, etiqueta, tipo) => {
+    criar: async (id_docente, enunciado, etiqueta, tipo) => {
 
         const resultado = await pool.query(
             `INSERT INTO questao (id_docente, enunciado, etiqueta, tipo)
              VALUES ($1, $2, $3, $4)
-             RETURNING id_questao`,
+             RETURNING questao`,
             [id_docente, enunciado, etiqueta || null, tipo]
-        );
-
-        return resultado.rows[0].id_questao;
-    },
-
-    QuestoesDocente: async (idDocente) => {
-        const resultado = await pool.query(
-            'SELECT * FROM questao WHERE id_docente = $1 ORDER BY id_questao DESC',
-            [idDocente]
         );
 
         return resultado.rows;
     },
 
-    atualizarQuestao: async (idQuestao, enunciado, etiqueta, tipo) => {
+    listarByDocente: async (id_docente) => {
+        const resultado = await pool.query(
+            'SELECT * FROM questao WHERE id_docente = $1 ORDER BY id_questao DESC',
+            [id_docente]
+        );
+
+        return resultado.rows;
+    },
+
+    atualizar: async (id_questao, enunciado, etiqueta, tipo) => {
 
         const resultado = await pool.query(
             `UPDATE questao
              SET enunciado = $1, etiqueta = $2, tipo = $3
              WHERE id_questao = $4`,
-            [enunciado, etiqueta || null, tipo, idQuestao]
+            [enunciado, etiqueta || null, tipo, id_questao]
         );
 
         return resultado.rowCount > 0;
     },
 
-    deletarQuestao: async (idQuestao) => {
+    deletar: async (id_questao) => {
         const resultado = await pool.query(
             'DELETE FROM questao WHERE id_questao = $1',
-            [idQuestao]
+            [id_questao]
         );
 
         return resultado.rowCount > 0;
