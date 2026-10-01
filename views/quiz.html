@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Sábio Quiz</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../public/style.css">
 </head>
 <body>
 
@@ -31,8 +31,10 @@
                 
                 <article class="cartao">
                     <div class="alternativas">
-                        <h2 id="qu">Questão 1</h2>
-                        <h3 id="questao">Qual é a capital do Brasil?</h3>
+                        <h2 class="qu">Questão 1</h2>
+                        <div class="questao-conteudo">
+                            <h3 class="questao">Qual é a capital do Brasil?</h3>
+                        </div>
 
                         <input type="radio" name="questao1" id="q1-a" value="a" class="radio-oculto">
                         <label for="q1-a" class="alter alt-a">A) Rio de Janeiro</label>
@@ -50,12 +52,11 @@
 
                 <article class="cartao">
                     <div class="alternativas">
-                        <h2 id="qu">Questão 2</h2>
-                        <h3 id="questao">Em qual esporte são usadas essas luvas? </h3>
-                        
-                        
-                        <img src="Midia/hoquei.png" alt="Equipamento de Hóquei" class="imagem-quiz" style="width: 70%;">
-                        
+                        <h2 class="qu">Questão 2</h2>
+                        <div class="questao-conteudo">
+                            <h3 class="questao">Em qual esporte são usadas essas luvas?</h3>
+                            <img src="../public/midia/hoquei.png" alt="Equipamento de Hóquei" class="imagem-quiz" style="width: 70%;">
+                        </div>
 
                         <input type="radio" name="questao2" id="q2-a" value="a" class="radio-oculto">
                         <label for="q2-a" class="alter alt-a">A) Grilo</label>
@@ -73,8 +74,10 @@
 
                 <article class="cartao">
                     <div class="alternativas">
-                        <h2 id="qu">Questão 3 </h2>
-                        <h3 id="questao">Plutão é um planeta anão.</h3>
+                        <h2 class="qu">Questão 3</h2>
+                        <div class="questao-conteudo">
+                            <h3 class="questao">Plutão é um planeta anão.</h3>
+                        </div>
                         <input type="radio" name="questao3" id="q3-a" value="a" class="radio-oculto">
                         <label for="q3-a" class="alter alt-a">A) Verdadeiro</label>
 

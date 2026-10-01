@@ -1,2 +1,4 @@
 _MACOSX/
 node_modules/
+/requisitos.md
+schema.sql

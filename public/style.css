@@ -1,4 +1,5 @@
 :root {
+    --cor-zero: #8a42dc;
     --cor-primaria: #5108a5;
     --cor-segundaria: #290663;
     --cor-destaque: #ac7cff;
@@ -56,7 +57,7 @@ body {
 }
 
 #fundoimg {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("Midia/fundo.png");
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("midia/fundo.png");
     background-size: cover;
 }
 
@@ -207,7 +208,7 @@ button,
 
 button:hover,
 .btn-primario:hover {
-    background: var(--cor-primaria);
+    background: var(--cor-zero);
 }
 
 .btn-secundario {
@@ -331,12 +332,19 @@ tbody tr:hover {
 }
 
 .questao {
-    grid-area: questao;
-    padding: 10px 0 25px 0;
     font-size: 24px;
     color: var(--cor-segundaria);
     text-align: center;
     font-weight: 600;
+}
+
+.questao-conteudo {
+    grid-area: questao;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0 25px;
 }
 
 .alter {
@@ -357,9 +365,9 @@ tbody tr:hover {
 }
 
 .alter:hover {
-    background-color: var(--cor-primaria);
+    background-color: var(--cor-zero);
     color: #ffffff;
-    border-color: var(--cor-primaria);
+    border-color: var(--cor-zero);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(81, 8, 165, 0.2);
 }

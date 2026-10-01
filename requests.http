@@ -1,0 +1,92 @@
+#################################### HTTP USUARIOS ##########################
+### CADASTRO
+POST http://localhost:3000/usuario
+Content-Type: application/json
+
+{
+    "usuarioId": 1,
+    "username": "adam",
+    "password": "123456"
+}
+###
+POST http://localhost:3000/usuario
+Content-Type: application/json
+
+{
+    "username": "joao",
+    "password": "123456",
+    "usuarioId": 2
+}
+
+### LOGIN
+POST http://localhost:3000/usuario/login
+Content-Type: application/json
+
+{
+    "usuarioId": 1,
+    "username": "adam",
+    "password": "123456"
+}
+
+### GET (verificar autenticação)
+GET http://localhost:3000/usuario/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkYW0iLCJ1c3VhcmlvSWQiOjEsImlhdCI6MTc5MDEwODk3MywiZXhwIjoxNzkwMTA5MDkzfQ.cIyh9sU_Dq67aeKqpv1kKWDPZ2nM0bvTejsbHdF8pvs
+
+### EXIBIR USUÁRIOS
+GET http://localhost:3000/usuario
+
+### EXIBIR USUÁRIO
+GET http://localhost:3000/usuario/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkYW0iLCJ1c3VhcmlvSWQiOjEsImlhdCI6MTc5MDExMTA4NSwiZXhwIjoxNzkwMTExMjA1fQ.iPCXF_s0A4bxs2xqf8cyiKxZzexqSz8VlWQKyjuKcek
+
+### ATUALIZAR
+PUT http://localhost:3000/usuario/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkYW0iLCJ1c3VhcmlvSWQiOjEsImlhdCI6MTc5MDExMTQwMiwiZXhwIjoxNzkwMTExNTIyfQ.PSgbLP2_wHyisWUFoZbrHCCGC14k3PQs7qcwaekmlc0
+Content-Type: application/json
+
+{
+    "usuarioId": 3,
+    "username": "maria",
+    "password": "199199"
+}
+
+### DELETE
+DELETE http://localhost:3000/usuario/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmlhIiwidXN1YXJpb0lkIjozLCJpYXQiOjE3OTAxMTE1MDAsImV4cCI6MTc5MDExMTYyMH0.xn75FHI8dWNY5ssvVARk8hghujdk-u4oH2TpAcVshBU
+
+################################### HTTP TAREFAS ##########################
+### CADASTRAR TAREFA
+POST http://localhost:3000/usuario/1/tarefa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkYW0iLCJ1c3VhcmlvSWQiOjEsImlhdCI6MTc5MDExMTc1OSwiZXhwIjoxNzkwMTExODc5fQ.-RrKRq_Naw6DivZs4PumIqTLsEmqM8vw-Wfryjez09k
+Content-Type: application/json
+
+{
+    "tarefaId": 50,
+    "descricao": "Passear com o cachorro"
+}
+### 
+POST http://localhost:3000/usuario/3/tarefa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkYW0iLCJ1c3VhcmlvSWQiOjEsImlhdCI6MTc5MDExMTc1OSwiZXhwIjoxNzkwMTExODc5fQ.-RrKRq_Naw6DivZs4PumIqTLsEmqM8vw-Wfryjez09k
+Content-Type: application/json
+
+{
+    "tarefaId": 10,
+    "descricao": "Jogar bola"
+}
+
+
+### TODAS AS TAREFAS DO USUARIO
+GET http://localhost:3000/usuario/1/tarefa/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkYW0iLCJ1c3VhcmlvSWQiOjEsImlhdCI6MTc5MDExMTkxNSwiZXhwIjoxNzkwMTEyMDM1fQ.rn7UzWvbq9IBBr_KCfVC9MnwkO8PwBuNTEesqrOYGbI
+
+### UMA TAREFA DO USUARIO
+GET http://localhost:3000/usuario/1/tarefa/50
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkYW0iLCJ1c3VhcmlvSWQiOjEsImlhdCI6MTc5MDExMTc1OSwiZXhwIjoxNzkwMTExODc5fQ.-RrKRq_Naw6DivZs4PumIqTLsEmqM8vw-Wfryjez09k
+
+### MARCAR COMO CONCLUÍDA
+PUT http://localhost:3000/usuario/1/tarefa/50/done
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkYW0iLCJ1c3VhcmlvSWQiOjEsImlhdCI6MTc5MDExMTc1OSwiZXhwIjoxNzkwMTExODc5fQ.-RrKRq_Naw6DivZs4PumIqTLsEmqM8vw-Wfryjez09k
+
+### DELETAR TAREFA
+DELETE http://localhost:3000/usuario/1/tarefa/50
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkYW0iLCJ1c3VhcmlvSWQiOjEsImlhdCI6MTc5MDExMTkxNSwiZXhwIjoxNzkwMTEyMDM1fQ.rn7UzWvbq9IBBr_KCfVC9MnwkO8PwBuNTEesqrOYGbI

@@ -1,20 +1,20 @@
 const pool = require('../conexao');
 
-const alunoRepositorio = require('../repositorios/alunoRepositorio');
-const docenteRepositorio = require('../repositorios/docenteRepositorio');
-const quizRepositorio = require('../repositorios/quizRepositorio');
-const questaoRepositorio = require('../repositorios/questaoRepositorio');
-const alternativaRepositorio = require('../repositorios/alternativaRepositorio');
-const quizQuestaoRepositorio = require('../repositorios/quizQuestaoRepositorio');
-const resultadoRepositorio = require('../repositorios/resultadoRepositorio');
+const alunoRepositorio = require('../models/alunoRepositorio');
+const docenteRepositorio = require('../models/docenteRepositorio');
+const quizRepositorio = require('../models/quizRepositorio');
+const questaoRepositorio = require('../models/questaoRepositorio');
+const alternativaRepositorio = require('../models/alternativaRepositorio');
+const quizQuestaoRepositorio = require('../models/quizQuestaoRepositorio');
+const resultadoRepositorio = require('../models/resultadoRepositorio');
 
 function getResultado(res) {
     console.log(res);
 }
 
 //ALUNO
-//alunoRepositorio.criar('Adreun', 'addr_s', 'adddr@email.com', '123456').then(getResultado);
-//alunoRepositorio.buscarById('addr_s').then(getResultado);
+//alunoRepositorio.criar('Marcia', 'maria_s', 'maria@email.com', '999999').then(getResultado);
+alunoRepositorio.buscarById('maria_s').then(getResultado);
 //alunoRepositorio.listar().then(getResultado);
 //alunoRepositorio.deletarById('joao_btt').then(getResultado);
 
@@ -34,7 +34,7 @@ function getResultado(res) {
 //QUESTÃO
 //questaoRepositorio.criar('adam_ss', 'Quantos anos tem o Professor João', 'Conhecimentos-Gerais', 4).then(getResultado);
 //questaoRepositorio.criar('adam_ss', 'Um triângulo escaleno é aquele que possui: (alternativas)', 'Matemática-Trig', 2).then(getResultado);
-questaoRepositorio.listarByDocente('adam_ss').then(getResultado);
+//questaoRepositorio.listarByDocente('adam_ss').then(getResultado);
 //questaoRepositorio.deletar(i).then(getResultado);
 
 //questaoRepositorio.atualizar(1, 'Quantos anos tem o Professor de Redes?', 'Conhecimentos-Gerais', 4).then(getResultado);

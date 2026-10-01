@@ -3,7 +3,7 @@ const pool = require('../conexao');
 const AlunoRepositorio = {
 
     criar: async (nome_completo, nome_usuario, email, senha) => {
-        const sql = 'INSERT INTO aluno (nome_completo, nome_usuario, email, senha) VALUES ($1, $2, $3, $4) RETURNING nome_usuario';
+        const sql = 'INSERT INTO aluno (nome_completo, nome_usuario, email, senha) VALUES ($1, $2, $3, $4) RETURNING aluno';
         const valores = [nome_completo, nome_usuario, email, senha];
         
         // terei que adicionar ese try catch em outros repositórios
