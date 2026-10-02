@@ -1,4 +1,4 @@
-const pool = require('../conexao');
+const pool = require('../db.js');
 
 const AlunoRepositorio = {
 
@@ -34,10 +34,10 @@ const AlunoRepositorio = {
     },
 
     listar: async() => {
-	const sql = 'SELECT * FROM aluno';
-	const res = await pool.query(sql);
-	
-	return res.rows;
+        const sql = 'SELECT * FROM aluno';
+        const res = await pool.query(sql);
+        
+        return res.rows;
     },
 
     deletarById: async (id_aluno) => {

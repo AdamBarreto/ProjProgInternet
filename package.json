@@ -7,7 +7,11 @@
     "testar": "node testes/testarRepositorios.js"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "pg": "^8.12.0"
+    "dotenv": "^16.6.1",
+    "express": "^5.2.1",
+    "hbs": "^4.3.1",
+    "http-errors": "^2.0.1",
+    "nodemon": "^3.1.14",
+    "pg": "^8.23.1"
   }
 }

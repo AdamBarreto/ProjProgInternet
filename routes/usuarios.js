@@ -1,9 +1,14 @@
 const express = require('express');
 const jwt = require('jsonwebtoken')
-const alunoRepositorio = require('../models/alunoRepositorio')
-const docenteRepositorio = require('../models/docenteRepositorio')
 const router = express.Router();
+
+const alunoRepositorio = require('../models/usuarios/alunoRepositorio')
+const docenteRepositorio = require('../models/usuarios/docenteRepositorio')
+
+
 const { validar, verifyJWT, verifyAutorization, usuarioSchema, JWT_EXPIRES, JWT_SECRET } = require('../middlewares/validacao');
+
+
 
 
 let users = []

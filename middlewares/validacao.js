@@ -78,4 +78,18 @@ const verifyAutorization = (req, res, next) => {
 
   return res.status(401).json({erro: "O token deve se referir à sua conta"});
 }
-module.exports = { validar, verifyJWT, verifyAutorization, usuarioSchema, tarefaSchema, JWT_EXPIRES, JWT_SECRET };
+
+const requireRole = (roles) => (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({ erro: 'Autenticação necessária.' });
+  }
+
+  if (!roles.includes(req.user.role)) {
+    return res.status(403).json({ erro: 'Você não tem permissão para acessar esta rota.' });
+  }
+
+  return next();
+};
+
+
+module.exports = { validar, verifyJWT, verifyAutorization, requireRole, usuarioSchema, tarefaSchema, JWT_EXPIRES, JWT_SECRET };

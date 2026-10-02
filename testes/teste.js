@@ -1,12 +1,12 @@
 const pool = require('../conexao');
 
-const alunoRepositorio = require('../models/alunoRepositorio');
-const docenteRepositorio = require('../models/docenteRepositorio');
-const quizRepositorio = require('../models/quizRepositorio');
-const questaoRepositorio = require('../models/questaoRepositorio');
-const alternativaRepositorio = require('../models/alternativaRepositorio');
-const quizQuestaoRepositorio = require('../models/quizQuestaoRepositorio');
-const resultadoRepositorio = require('../models/resultadoRepositorio');
+const alunoRepositorio = require('../models/usuarios/alunoRepositorio');
+const docenteRepositorio = require('../models/usuarios/docenteRepositorio');
+const quizRepositorio = require('../models/quizzes/quizRepositorio');
+const questaoRepositorio = require('../models/questoes/questaoRepositorio');
+const alternativaRepositorio = require('../models/questoes/alternativaRepositorio');
+const quizQuestaoRepositorio = require('../models/quizzes/quizQuestaoRepositorio');
+const resultadoRepositorio = require('../models/quizzes/resultadoRepositorio');
 
 function getResultado(res) {
     console.log(res);
@@ -14,8 +14,8 @@ function getResultado(res) {
 
 //ALUNO
 //alunoRepositorio.criar('Marcia', 'maria_s', 'maria@email.com', '999999').then(getResultado);
-alunoRepositorio.buscarById('maria_s').then(getResultado);
-//alunoRepositorio.listar().then(getResultado);
+//alunoRepositorio.buscarById('maria_s').then(getResultado);
+alunoRepositorio.listar().then(getResultado);
 //alunoRepositorio.deletarById('joao_btt').then(getResultado);
 
 //DOCENTE
