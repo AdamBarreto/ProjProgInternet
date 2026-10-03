@@ -1,5 +1,4 @@
 const Ajv = require('ajv');
-const jwt = require('jsonwebtoken')
 
 const ajv = new Ajv({ allErrors: true, coerceTypes: true });
 
@@ -8,22 +7,12 @@ const ajv = new Ajv({ allErrors: true, coerceTypes: true });
 const usuarioSchema = {
   type: 'object',
   properties: {
-    usuarioId: { type: 'integer', minimum: 1 },
+    nome: {type: 'string'},
     username: { type: 'string'},
-    password: { type: 'string'}
+    email: { type: 'string'},
+    senha: { type: 'string'}
   },
-  required: ['usuarioId','username', 'password'], //usuarioId talvez não precise
-  additionalProperties: false
-};
-
-// Schema da tarefa
-const tarefaSchema = {
-  type: 'object',
-  properties: {
-    tarefaId: { type: 'integer', minimum: 1 },
-    descricao: { type: 'string', minLength: 3, maxLength: 200 }
-  },
-  required: ['tarefaId', 'descricao'],
+  required: ['nome','username', 'email', 'senha'],
   additionalProperties: false
 };
 
@@ -45,51 +34,5 @@ function validar(schema) {
   };
 }
 
-const JWT_SECRET = 'chave_secreta_do_servidor';
-const JWT_EXPIRES = 120
 
-const blacklist = {} // Objeto que vai armazenar os tokens revogados
-
-const verifyJWT = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-
-  if (!authHeader) return res.status(401).json({ error: 'Token não fornecido' });
-
-  const token = authHeader.replace('Bearer ', ''); // Removendo a string 'Bearer ' do header
-  
-  if (blacklist[token]) {
-      return res.status(403).json({ message: 'Token inválido ou sessão encerrada.' });
-  }
-
-  try {
-      // Valida a assinatura digital e se o prazo (exp) não expirou
-      const decoded = jwt.verify(token, JWT_SECRET);
-      req.user = decoded; // Anexa o payload decodificado ao req
-      next();
-  } catch (err) {
-      return res.status(403).json({ error: 'Token inválido ou expirado' });
-  }
-};
-
-const verifyAutorization = (req, res, next) => {
-  if (req.params.id == req.user.usuarioId) {
-    return next()
-  };
-
-  return res.status(401).json({erro: "O token deve se referir à sua conta"});
-}
-
-const requireRole = (roles) => (req, res, next) => {
-  if (!req.user) {
-    return res.status(401).json({ erro: 'Autenticação necessária.' });
-  }
-
-  if (!roles.includes(req.user.role)) {
-    return res.status(403).json({ erro: 'Você não tem permissão para acessar esta rota.' });
-  }
-
-  return next();
-};
-
-
-module.exports = { validar, verifyJWT, verifyAutorization, requireRole, usuarioSchema, tarefaSchema, JWT_EXPIRES, JWT_SECRET };
+module.exports = { validar, usuarioSchema};

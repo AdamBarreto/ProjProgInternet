@@ -4,7 +4,7 @@ app.use(express.json());
 
 const usuariosRoutes = require('./routes/usuarios_teste');
 
-app.use('/usuario', usuariosRoutes);
+app.use(usuariosRoutes);
 
 
 app.listen(3000, () => {

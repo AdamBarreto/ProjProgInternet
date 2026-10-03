@@ -1,4 +1,26 @@
 #################################### HTTP USUARIOS ##########################
 ### EXIBIR USUÁRIOS
-GET http://localhost:3000/usuario
+GET http://localhost:3000/aluno
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJlbmFuX2IiLCJyb2xlIjoiYWx1bm8iLCJpYXQiOjE3OTEwMzY1NTAsImV4cCI6MTc5MTAzNjY3MH0.Ghu98yW67dydOMvo5xKQ8MYldlQdCTYqfM_MqkNC88Q
 
+### CADASTRO
+POST http://localhost:3000/docente
+Content-Type: application/json
+
+{
+    "nome": "Adam Barreto",
+    "username": "adam_sb",
+    "email": "adam@gmail.com",
+    "senha": "123456"
+}
+
+### CADASTRO
+POST http://localhost:3000/aluno
+Content-Type: application/json
+
+{
+    "nome": "João Renato",
+    "username": "renan_b",
+    "email": "renato@gmail.com",
+    "senha": "123456"
+}

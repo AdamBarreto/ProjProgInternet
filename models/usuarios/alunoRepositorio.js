@@ -40,7 +40,19 @@ const AlunoRepositorio = {
         return res.rows;
     },
 
-    deletarById: async (id_aluno) => {
+    atualizar: async (nome_completo, id_docente, email, senha) => {;
+
+        const resultado = await pool.query(
+            `UPDATE docente
+             SET nome_completo = $1, nome_usuario = $2, email = $3, senha = $4
+             WHERE id_docente = $5`,
+            [nome_completo, nome_usuario, email, senha, id_docente]
+        );
+
+        return resultado.rowCount > 0;
+    },
+    
+    deletar: async (id_aluno) => {
         const resultado = await pool.query(
             'DELETE FROM aluno WHERE nome_usuario = $1',
             [id_aluno]
