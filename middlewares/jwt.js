@@ -1,14 +1,16 @@
 const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = 'chave_secreta_do_servidor';
-const JWT_EXPIRES = 120
+const JWT_EXPIRES = 1200
 
 const blacklist = {} // Objeto que vai armazenar os tokens revogados
 
-const createToken = (role) => (req, res) => {
-    const payload = { username: req.body.username, role: role};
-    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES});
-    res.json(token).status(201);
+const gerarToken = (usuario) => {
+    const payload = { 
+      username: usuario.nome_usuario,
+      role: usuario.role};
+
+    return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES});
 };
 
 const verifyJWT = (req, res, next) => {
@@ -45,4 +47,4 @@ const requireRole = (roles) => (req, res, next) => {
   return next();
 };
 
-module.exports = { createToken, verifyJWT, verifyProfile, requireRole };
+module.exports = { gerarToken, verifyJWT, verifyProfile, requireRole };
