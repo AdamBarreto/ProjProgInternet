@@ -3,19 +3,39 @@ const Ajv = require('ajv');
 const ajv = new Ajv({ allErrors: true, coerceTypes: true });
 
 
-// Schema do usuário
-const usuarioSchema = {
+const cadastroUsuarioSchema = {
   type: 'object',
   properties: {
     nome: {type: 'string'},
     username: { type: 'string'},
     email: { type: 'string'},
-    senha: { type: 'string'}
+    senha: { type: 'string'},
+    role: { type: 'string', enum: ['aluno', 'docente', 'admin'] }
   },
-  required: ['nome','username', 'email', 'senha'],
+  required: ['nome', 'username', 'email', 'senha', 'role'],
   additionalProperties: false
 };
 
+const loginSchema = {
+  type: 'object',
+  properties: {
+    username: { type: 'string' },
+    senha: { type: 'string' }
+  },
+  required: ['username', 'senha'],
+  additionalProperties: false
+};
+
+const atualizarUsuarioSchema = {
+  type: 'object',
+  properties: {
+    nome: { type: 'string' },
+    email: { type: 'string' },
+    senha: { type: 'string' }
+  },
+  required: ['nome', 'email', 'senha'],
+  additionalProperties: false
+};
 
 function validar(schema) {
   const validate = ajv.compile(schema); //cria uma func de validação
@@ -35,4 +55,9 @@ function validar(schema) {
 }
 
 
-module.exports = { validar, usuarioSchema};
+module.exports = {
+  validar,
+  cadastroUsuarioSchema,
+  loginSchema,
+  atualizarUsuarioSchema
+};

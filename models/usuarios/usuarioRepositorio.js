@@ -37,21 +37,16 @@ const UsuarioRepositorio = {
     listar: async() => {
         const sql = 'SELECT * FROM usuario';
         const res = await pool.query(sql);
-        
-        console.log(res.rows)
-
         return res.rows;
     },
     listarAlunos: async() => {
         const sql = `SELECT * FROM usuario WHERE role = 'aluno'`;
         const res = await pool.query(sql);
-        
         return res.rows;
     },
     listarDocentes: async() => {
         const sql = `SELECT * FROM usuario WHERE role = 'docente'`;
         const res = await pool.query(sql);
-        
         return res.rows;
     },
 

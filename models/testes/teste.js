@@ -1,12 +1,12 @@
-const pool = require('../conexao');
+const pool = require('../../conexao');
 
-const alunoRepositorio = require('../models/usuarios/alunoRepositorio');
-const docenteRepositorio = require('../models/usuarios/docenteRepositorio');
-const quizRepositorio = require('../models/quizzes/quizRepositorio');
-const questaoRepositorio = require('../models/questoes/questaoRepositorio');
-const alternativaRepositorio = require('../models/questoes/alternativaRepositorio');
-const quizQuestaoRepositorio = require('../models/quizzes/quizQuestaoRepositorio');
-const resultadoRepositorio = require('../models/quizzes/resultadoRepositorio');
+const alunoRepositorio = require('../usuarios/alunoRepositorio');
+const docenteRepositorio = require('../usuarios/docenteRepositorio');
+const quizRepositorio = require('../quizzes/quizRepositorio');
+const questaoRepositorio = require('../questoes/questaoRepositorio');
+const alternativaRepositorio = require('../questoes/alternativaRepositorio');
+const quizQuestaoRepositorio = require('../quizzes/quizQuestaoRepositorio');
+const resultadoRepositorio = require('../quizzes/resultadoRepositorio');
 
 function getResultado(res) {
     console.log(res);
