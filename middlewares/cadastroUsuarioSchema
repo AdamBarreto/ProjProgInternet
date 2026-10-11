@@ -1,0 +1,14 @@
+const cadastroUsuarioSchema = {
+  type: 'object',
+  properties: {
+    nome: {type: 'string'},
+    username: { type: 'string'},
+    email: { type: 'string'},
+    senha: { type: 'string'},
+    role: { type: 'string', enum: ['aluno', 'docente', 'admin'] }
+  },
+  required: ['nome', 'username', 'email', 'senha', 'role'],
+  additionalProperties: false
+};
+
+module.exports = cadastroUsuarioSchema;

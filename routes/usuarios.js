@@ -3,12 +3,12 @@ const router = express.Router();
 
 const { UsuarioApiController } = require('../controllers/usuarioController');
 const LoginController = require('../controllers/loginController');
-const {
-    validar,
-    cadastroUsuarioSchema,
-    loginSchema,
-    atualizarUsuarioSchema
-} = require('../middlewares/validacao');
+
+const { validar } = require('../middlewares/validacao');
+const cadastroUsuarioSchema = require('../middlewares/cadastroUsuarioSchema');
+const loginSchema = require('../middlewares/loginSchema');
+const atualizarUsuarioSchema = require('../middlewares/atualizarUsuarioSchema');
+
 const { verifyJWT, verifyAuth, requireRole } = require('../middlewares/jwt');
 
 router.post('/usuario', validar(cadastroUsuarioSchema), UsuarioApiController.criar);

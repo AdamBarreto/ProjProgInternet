@@ -1,0 +1,11 @@
+const loginSchema = {
+  type: 'object',
+  properties: {
+    username: { type: 'string' },
+    senha: { type: 'string' }
+  },
+  required: ['username', 'senha'],
+  additionalProperties: false
+};
+
+module.exports = loginSchema
