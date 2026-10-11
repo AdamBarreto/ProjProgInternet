@@ -2,7 +2,7 @@ const pool = require('../db.js');
 
 const QuizQuestaoRepositorio = {
 
-    addQuestaoInQuiz: async (id_quiz, id_questao) => {
+    adicionar: async (id_quiz, id_questao) => {
         //posso adicionar um for aqui pra ir as questoes tudo de uma vez 
         await pool.query(
             `INSERT INTO quiz_questao (id_quiz, id_questao)
@@ -25,7 +25,7 @@ const QuizQuestaoRepositorio = {
         return resultado.rows;
     },
 
-    removerQuestaoInQuiz: async (id_quiz, id_questao) => {
+    remover: async (id_quiz, id_questao) => {
         const resultado = await pool.query(
             'DELETE FROM quiz_questao WHERE id_quiz = $1 AND id_questao = $2',
             [id_quiz, id_questao]
