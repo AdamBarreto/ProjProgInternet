@@ -7,11 +7,11 @@ const QuestaoRepositorio = {
         const resultado = await pool.query(
             `INSERT INTO questao (id_docente, enunciado, etiqueta, tipo)
              VALUES ($1, $2, $3, $4)
-             RETURNING questao`,
+             RETURNING *`,
             [id_docente, enunciado, etiqueta || null, tipo]
         );
 
-        return resultado.rows;
+        return resultado.rows[0];
     },
 
     listarByDocente: async (id_docente) => {

@@ -2,22 +2,14 @@ const pool = require('../db.js');
 
 const AlternativaRepositorio = {
 
-    criar: async (id_questao, gabarito, textosArray) => {
-    // textosArray exemplo: ['Resp A', 'Resp B', 'Resp C', 'Resp D']
-    
-    for (let i = 0; i < textosArray.length; i++) {
-        const ordem = i + 1; // Gera 1, 2, 3, 4
-        const texto = textosArray[i];
-        const correta = (i === gabarito - 1);
-
-        await pool.query(
+    criar: async (id_questao, ordem, texto, correta) => {
+        const alternativa = await pool.query(
             `INSERT INTO alternativa (id_questao, ordem_alternativa, texto, correta)
-             VALUES ($1, $2, $3, $4)`,
+             VALUES ($1, $2, $3, $4) RETURNING texto`,
             [id_questao, ordem, texto, correta]
         );
-    }
-
-        return true;
+        
+        return alternativa.rows[0];
     },
 
     listarByQuestao: async (id_questao) => {

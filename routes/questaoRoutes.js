@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { QuestaoApiController } = require('../controllers/questaoController');
 const { validar } = require('../middlewares/validacao');
-const criarQuestaoSchema = require('../middlewares/criarQuestaoSchema');
+const criarQuestaoSchema = require('../middlewares/questaoSchema');
 const { verifyJWT, requireRole } = require('../middlewares/jwt');
 
 router.post('/', verifyJWT, requireRole(['docente']), validar(criarQuestaoSchema), QuestaoApiController.criar);

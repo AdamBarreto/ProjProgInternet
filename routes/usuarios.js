@@ -5,9 +5,7 @@ const { UsuarioApiController } = require('../controllers/usuarioController');
 const LoginController = require('../controllers/loginController');
 
 const { validar } = require('../middlewares/validacao');
-const cadastroUsuarioSchema = require('../middlewares/cadastroUsuarioSchema');
-const loginSchema = require('../middlewares/loginSchema');
-const atualizarUsuarioSchema = require('../middlewares/atualizarUsuarioSchema');
+const { cadastroUsuarioSchema, loginSchema, atualizarUsuarioSchema } = require('../middlewares/usuarioSchema');
 
 const { verifyJWT, verifyAuth, requireRole } = require('../middlewares/jwt');
 

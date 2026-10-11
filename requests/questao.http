@@ -1,12 +1,11 @@
 @baseUrl = http://localhost:3000
-@token = COLE_AQUI_O_TOKEN_DO_DOCENTE
-
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkYW1fc2IiLCJyb2xlIjoiZG9jZW50ZSIsImlhdCI6MTc5MTc1OTkwMSwiZXhwIjoxNzkxNzYxMTAxfQ.SEYBQlpCm_Q9XHxES5AXlN1L5CTo68WX4F-RwbixQNo
 ### Login do docente (copie o token da resposta)
 POST {{baseUrl}}/login
 Content-Type: application/json
 
 {
-  "username": "sixsevendasilva",
+  "username": "adam_sb",
   "senha": "123456"
 }
 
@@ -17,9 +16,18 @@ Authorization: Bearer {{token}}
 
 {
   "enunciado": "Qual é a capital do Brasil?",
-  "etiqueta": "geografia",
-  "tipo": "objetiva"
+  "etiqueta": "Geografia",
+  "tipo": "multipla_escolha",
+  "gabarito": 2,
+  "alternativas": [
+    "São Paulo",
+    "Brasília",
+    "Rio de Janeiro",
+    "Salvador"
+  ]
 }
+
+
 
 ### Dados inválidos -> 400
 POST {{baseUrl}}/questoes

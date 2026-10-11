@@ -1,4 +1,6 @@
+const AlternativaRepositorio = require('../models/questoes/alternativaRepositorio');
 const QuestaoRepositorio = require('../models/questoes/questaoRepositorio'); // ajuste o caminho
+const { listarByDocente } = require('../models/quizzes/quizRepositorio');
 
 const erroHttp = (status, mensagem) => {
     const erro = new Error(mensagem);
@@ -6,19 +8,51 @@ const erroHttp = (status, mensagem) => {
     return erro;
 };
 
+function async inserirAlternativas (id_questao, gabarito, textosArray) {
+    // textosArray exemplo: ['Resp A', 'Resp B', 'Resp C', 'Resp D']
+    let alternativaList = new Set();
+    for (let i = 0; i < textosArray.lenght; i++) {
+        const ordem = i + 1; // Gera 1, 2, 3, 4
+        const texto = textosArray[i];
+        const correta = (i === gabarito - 1);
+        const alternativa = await AlternativaRepositorio.criar(id_questao, ordem, texto, correta);
+        alternativaList.add(alternativa)
+    };
+    return alternativaList;
+}
+
 const QuestaoService = {
 
     criar: async (questao, usuario) => {
-        const criada = await QuestaoRepositorio.criar(
+        const questaoNova = await QuestaoRepositorio.criar(
             usuario.username,          // id_docente
             questao.enunciado,
             questao.etiqueta,
             questao.tipo
         );
-        return criada[0];
+        const alternativas = await QuestaoService.inserirAlternativas(
+            questaoNova.id,
+            questao.gabarito,
+            questao.alternativas
+        );
+
+        return {
+            ...questaoNova,
+            alternativas: alternativas
+        };
     },
 
-    listarMinhas: async (usuario) => {
+    exibirQuestao: async (id_questao) => {
+        const questao = await QuestaoRepositorio.buscarById(id_questao);
+        const alternativas = await AlternativaRepositorio.listarByQuestao(id_questao);
+
+        return {
+            ...questao,
+            alternativas: alternativas
+        };
+    },
+
+    listarByDocente: async (usuario) => {
         return QuestaoRepositorio.listarByDocente(usuario.username);
     },
 
