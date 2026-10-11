@@ -1,0 +1,47 @@
+const QuestaoRepositorio = require('../models/questoes/questaoRepositorio'); // ajuste o caminho
+
+const erroHttp = (status, mensagem) => {
+    const erro = new Error(mensagem);
+    erro.status = status;
+    return erro;
+};
+
+const QuestaoService = {
+
+    criar: async (questao, usuario) => {
+        const criada = await QuestaoRepositorio.criar(
+            usuario.username,          // id_docente
+            questao.enunciado,
+            questao.etiqueta,
+            questao.tipo
+        );
+        return criada[0];
+    },
+
+    listarMinhas: async (usuario) => {
+        return QuestaoRepositorio.listarByDocente(usuario.username);
+    },
+
+    atualizar: async (id, questao, usuario) => {
+        const existente = await QuestaoRepositorio.buscarById(id);
+        if (!existente) throw erroHttp(404, 'Questão não encontrada');
+        if (existente.id_docente !== usuario.username) {
+            throw erroHttp(403, 'Você só pode alterar suas próprias questões');
+        }
+
+        await QuestaoRepositorio.atualizar(id, questao.enunciado, questao.etiqueta, questao.tipo);
+        return QuestaoRepositorio.buscarById(id);
+    },
+
+    deletar: async (id, usuario) => {
+        const existente = await QuestaoRepositorio.buscarById(id);
+        if (!existente) throw erroHttp(404, 'Questão não encontrada');
+        if (existente.id_docente !== usuario.username) {
+            throw erroHttp(403, 'Você só pode excluir suas próprias questões');
+        }
+
+        return QuestaoRepositorio.deletar(id);
+    }
+};
+
+module.exports = QuestaoService;

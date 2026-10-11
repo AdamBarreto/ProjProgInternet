@@ -1,0 +1,63 @@
+@baseUrl = http://localhost:3000
+@token = COLE_AQUI_O_TOKEN_DO_DOCENTE
+
+### Login do docente (copie o token da resposta)
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "username": "sixsevendasilva",
+  "senha": "123456"
+}
+
+### Criar questão -> 201
+POST {{baseUrl}}/questoes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "enunciado": "Qual é a capital do Brasil?",
+  "etiqueta": "geografia",
+  "tipo": "objetiva"
+}
+
+### Dados inválidos -> 400
+POST {{baseUrl}}/questoes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "enunciado": "x"
+}
+
+### Token de aluno -> 403
+POST {{baseUrl}}/questoes
+Content-Type: application/json
+Authorization: Bearer COLE_TOKEN_DE_ALUNO
+
+{
+  "enunciado": "Qual é a capital do Brasil?",
+  "tipo": "objetiva"
+}
+
+### Sem token -> 401
+GET {{baseUrl}}/questoes
+
+### Listar minhas questões -> 200
+GET {{baseUrl}}/questoes
+Authorization: Bearer {{token}}
+
+### Atualizar -> 200 (404 se o id não existir, 403 se for de outro docente)
+PUT {{baseUrl}}/questoes/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "enunciado": "Qual é a capital do Brasil? (revisada)",
+  "etiqueta": "geografia",
+  "tipo": "objetiva"
+}
+
+### Excluir -> 204
+DELETE {{baseUrl}}/questoes/1
+Authorization: Bearer {{token}}
