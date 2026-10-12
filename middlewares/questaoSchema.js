@@ -3,8 +3,8 @@ const criarQuestaoSchema = {
   properties: {
     enunciado: { type: 'string', minLength: 5 },
     etiqueta: { type: 'string' },
-    tipo: { type: 'string' },
-    gabarito: { type: 'integer' },
+    tipo: { type: 'string', enum: ['multipla_escolha', 'verdadeiro_falso'] },
+    gabarito: { type: 'integer', minimum: 1, maximum: 4 },
     alternativas: {
       type: 'array',
       items: { type: 'string' },

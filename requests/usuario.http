@@ -1,39 +1,80 @@
-#################################### HTTP USUARIOS ##########################
-### EXIBIR USUÁRIOS
-GET http://localhost:3000/
+@baseUrl = http://localhost:3000
+@username = usuario_teste
+@email = usuario_teste@example.com
+@senha = senha_teste_123
+@usuarioToken = {{criarUsuario.response.body.$.token}}
+@adminUsername = admin_existente
+@adminSenha = senha_do_admin
+@adminToken = {{loginAdmin.response.body.$.token}}
 
-### CADASTRO
-POST http://localhost:3000/usuario
+### Criar usuário docente -> 201
+# @name criarUsuario
+POST {{baseUrl}}/usuario
 Content-Type: application/json
 
 {
-    "nome": "Adam Barreto",
-    "username": "adam_sb",
-    "email": "adam@gmail.com",
-    "senha": "123456",
-    "role": "docente"
+  "nome": "Usuário de Teste",
+  "username": "{{username}}",
+  "email": "{{email}}",
+  "senha": "{{senha}}",
+  "role": "docente"
 }
 
-### DELETAR (usuário)
-DELETE http://localhost:3000/usuario/wayne_br
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IndheW5lX2JyIiwicm9sZSI6ImFsdW5vIiwiaWF0IjoxNzkxNjM0MTg0LCJleHAiOjE3OTE2MzUzODR9.WkIQenOHunjXCEHKwy9KniDf297IC2VZ4vO8-XdULKo
+### Consultar perfil do usuário autenticado -> 200
+GET {{baseUrl}}/profile
+Authorization: Bearer {{usuarioToken}}
 
-### BUSCAR USUÁRIO (admin)
-GET http://localhost:3000/usuario/adam_sb
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IndheW5lX2JyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzkxNjM0OTY0LCJleHAiOjE3OTE2MzYxNjR9.FobyiOUQqQde2VVUboYnuf75OCaEu0G7AKJLa0ljN4A
+### Autenticar admin para operações administrativas
+# @name loginAdmin
+POST {{baseUrl}}/login
+Content-Type: application/json
 
-### ATUALIZAR USUÁRIO (usuário)
-PUT http://localhost:3000/usuario/adam_sb
-Authorization: Bearer
+{
+  "username": "{{adminUsername}}",
+  "senha": "{{adminSenha}}"
+}
 
-### (admin)
-GET http://localhost:3000/localhost:3000/docente
-Authorization: Bearer
-###
-GET http://localhost:3000/localhost:3000/admin
-Authorization: Bearer
-###
-GET http://localhost:3000/localhost:3000/aluno
-Authorization: Bearer
+### Listar usuários (somente admin) -> 200
+GET {{baseUrl}}/usuario
+Authorization: Bearer {{adminToken}}
 
+### Buscar usuário por username (somente admin) -> 200
+GET {{baseUrl}}/usuario/{{username}}
+Authorization: Bearer {{adminToken}}
 
+### Listar alunos (somente admin) -> 200
+GET {{baseUrl}}/aluno
+Authorization: Bearer {{adminToken}}
+
+### Listar docentes (somente admin) -> 200
+GET {{baseUrl}}/docente
+Authorization: Bearer {{adminToken}}
+
+### Listar administradores (somente admin) -> 200
+GET {{baseUrl}}/admin
+Authorization: Bearer {{adminToken}}
+
+### Autenticar usuário criado
+# @name loginUsuario
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "username": "{{username}}",
+  "senha": "{{senha}}"
+}
+
+### Atualizar o próprio usuário -> 200
+PUT {{baseUrl}}/usuario/{{username}}
+Content-Type: application/json
+Authorization: Bearer {{loginUsuario.response.body.$.token}}
+
+{
+  "nome": "Usuário de Teste Atualizado",
+  "email": "usuario_teste_atualizado@example.com",
+  "senha": "senha_teste_atualizada_123"
+}
+
+### Excluir o próprio usuário -> 204
+DELETE {{baseUrl}}/usuario/{{username}}
+Authorization: Bearer {{loginUsuario.response.body.$.token}}

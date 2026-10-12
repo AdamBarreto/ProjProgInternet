@@ -1,11 +1,22 @@
-### LOGIN
-POST http://localhost:3000/login
+@baseUrl = http://localhost:3000
+@username = adam_sb
+@senha = 123456
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkYW1fc2IiLCJyb2xlIjoiZG9jZW50ZSIsImlhdCI6MTc5MTgwMzA2MSwiZXhwIjoxNzkxODA0MjYxfQ.lilCNXjNHSgK_drotk9dMi2uEnQxQYOWuvbHn9OS62s
+
+### Login -> 200
+# @name login
+POST {{baseUrl}}/login
 Content-Type: application/json
 
 {
-    "username": "logan_ue",
-    "senha": "123456"
+  "username": "adam_sb",
+  "senha": "123456"
 }
-### LOGOUT
-POST http://localhost:3000/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJlbmFuX2IiLCJyb2xlIjoiYWx1bm8iLCJpYXQiOjE3OTE1ODc1MzEsImV4cCI6MTc5MTU4ODczMX0.1NnQRavdrYSCGqgMsR1N_G5aq53-XplqnghN_wr3GLA
+
+### Consultar perfil autenticado -> 200
+GET {{baseUrl}}/profile
+Authorization: Bearer {{token}}
+
+### Logout -> 200
+POST {{baseUrl}}/logout
+Authorization: Bearer {{token}}

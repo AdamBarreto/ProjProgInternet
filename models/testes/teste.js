@@ -1,4 +1,4 @@
-const pool = require('../../conexao');
+const pool = require('../db');
 
 const alunoRepositorio = require('../usuarios/alunoRepositorio');
 const docenteRepositorio = require('../usuarios/docenteRepositorio');

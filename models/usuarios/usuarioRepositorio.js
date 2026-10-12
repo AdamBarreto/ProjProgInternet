@@ -6,7 +6,6 @@ const UsuarioRepositorio = {
         const sql = 'INSERT INTO usuario (nome_completo, nome_usuario, email, senha, role) VALUES ($1, $2, $3, $4, $5) RETURNING *';
         const valores = [nome_completo, nome_usuario, email, senha, role];
         
-        // terei que adicionar ese try catch em outros repositórios
         try {
             const res = await pool.query(sql, valores);
      

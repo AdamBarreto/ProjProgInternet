@@ -1,6 +1,5 @@
 const AlternativaRepositorio = require('../models/questoes/alternativaRepositorio');
-const QuestaoRepositorio = require('../models/questoes/questaoRepositorio'); // ajuste o caminho
-const { listarByDocente } = require('../models/quizzes/quizRepositorio');
+const QuestaoRepositorio = require('../models/questoes/questaoRepositorio');
 
 const erroHttp = (status, mensagem) => {
     const erro = new Error(mensagem);
@@ -8,48 +7,45 @@ const erroHttp = (status, mensagem) => {
     return erro;
 };
 
-function async inserirAlternativas (id_questao, gabarito, textosArray) {
-    // textosArray exemplo: ['Resp A', 'Resp B', 'Resp C', 'Resp D']
-    let alternativaList = new Set();
-    for (let i = 0; i < textosArray.lenght; i++) {
-        const ordem = i + 1; // Gera 1, 2, 3, 4
-        const texto = textosArray[i];
-        const correta = (i === gabarito - 1);
-        const alternativa = await AlternativaRepositorio.criar(id_questao, ordem, texto, correta);
-        alternativaList.add(alternativa)
+const validarId = (id) => {
+    const idNumerico = Number(id);
+    if (!Number.isInteger(idNumerico) || idNumerico < 1) {
+        throw erroHttp(400, 'Identificador de questão inválido');
+    }
+    return idNumerico;
+};
+
+const prepararQuestao = (questao) => {
+    const { gabarito, alternativas, ...dadosQuestao } = questao;
+    return {
+        ...dadosQuestao,
+        alternativas: alternativas.map((texto, indice) => ({
+            ordem: indice + 1,
+            texto,
+            correta: indice + 1 === gabarito
+        }))
     };
-    return alternativaList;
-}
+};
+
+const buscarQuestaoDoDocente = async (id, usuario) => {
+    const questao = await QuestaoRepositorio.buscarById(validarId(id));
+    if (!questao) throw erroHttp(404, 'Questão não encontrada');
+    if (questao.id_docente !== usuario.username) {
+        throw erroHttp(403, 'Você só pode acessar suas próprias questões');
+    }
+    return questao;
+};
 
 const QuestaoService = {
-
     criar: async (questao, usuario) => {
-        const questaoNova = await QuestaoRepositorio.criar(
-            usuario.username,          // id_docente
-            questao.enunciado,
-            questao.etiqueta,
-            questao.tipo
-        );
-        const alternativas = await QuestaoService.inserirAlternativas(
-            questaoNova.id,
-            questao.gabarito,
-            questao.alternativas
-        );
-
-        return {
-            ...questaoNova,
-            alternativas: alternativas
-        };
+        validarGabarito(questao);
+        return QuestaoRepositorio.criarCompleta(usuario.username, prepararQuestao(questao));
     },
 
-    exibirQuestao: async (id_questao) => {
-        const questao = await QuestaoRepositorio.buscarById(id_questao);
-        const alternativas = await AlternativaRepositorio.listarByQuestao(id_questao);
-
-        return {
-            ...questao,
-            alternativas: alternativas
-        };
+    exibirQuestao: async (id, usuario) => {
+        const questao = await buscarQuestaoDoDocente(id, usuario);
+        const alternativas = await AlternativaRepositorio.listarByQuestao(questao.id_questao);
+        return { ...questao, alternativas };
     },
 
     listarByDocente: async (usuario) => {
@@ -57,24 +53,19 @@ const QuestaoService = {
     },
 
     atualizar: async (id, questao, usuario) => {
-        const existente = await QuestaoRepositorio.buscarById(id);
-        if (!existente) throw erroHttp(404, 'Questão não encontrada');
-        if (existente.id_docente !== usuario.username) {
-            throw erroHttp(403, 'Você só pode alterar suas próprias questões');
-        }
-
-        await QuestaoRepositorio.atualizar(id, questao.enunciado, questao.etiqueta, questao.tipo);
-        return QuestaoRepositorio.buscarById(id);
+        const existente = await buscarQuestaoDoDocente(id, usuario);
+        validarGabarito(questao);
+        const atualizada = await QuestaoRepositorio.atualizarCompleta(
+            existente.id_questao,
+            prepararQuestao(questao)
+        );
+        if (!atualizada) throw erroHttp(404, 'Questão não encontrada');
+        return atualizada;
     },
 
     deletar: async (id, usuario) => {
-        const existente = await QuestaoRepositorio.buscarById(id);
-        if (!existente) throw erroHttp(404, 'Questão não encontrada');
-        if (existente.id_docente !== usuario.username) {
-            throw erroHttp(403, 'Você só pode excluir suas próprias questões');
-        }
-
-        return QuestaoRepositorio.deletar(id);
+        const existente = await buscarQuestaoDoDocente(id, usuario);
+        return QuestaoRepositorio.deletar(existente.id_questao);
     }
 };
 

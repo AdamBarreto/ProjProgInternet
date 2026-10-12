@@ -1,44 +1,49 @@
 const QuestaoService = require('../services/questaoService');
 
-const tratarErro = (res, erro) => {
-    res.status(erro.status || 500).json({ erro: erro.message });
-};
-
 const QuestaoApiController = {
 
-    criar: async (req, res) => {
+    criar: async (req, res, next) => {
         try {
             const questao = await QuestaoService.criar(req.body, req.user);
             res.status(201).json(questao);
-        } catch (erro) {
-            tratarErro(res, erro);
+        } catch (error) {
+            next(error);
         }
     },
 
-    listar: async (req, res) => {
+    listarByDocente: async (req, res, next) => {
         try {
-            const questoes = await QuestaoService.listarMinhas(req.user);
+            const questoes = await QuestaoService.listarByDocente(req.user);
             res.status(200).json(questoes);
-        } catch (erro) {
-            tratarErro(res, erro);
+        } catch (error) {
+            next(error);
         }
     },
 
-    atualizar: async (req, res) => {
+    buscarById: async (req, res, next) => {
         try {
-            const questao = await QuestaoService.atualizar(req.params.id, req.body, req.user);
+            const questao = await QuestaoService.exibirQuestao(req.params.idQuestao, req.user);
             res.status(200).json(questao);
-        } catch (erro) {
-            tratarErro(res, erro);
+        } catch (error) {
+            next(error);
         }
     },
 
-    deletar: async (req, res) => {
+    atualizar: async (req, res, next) => {
         try {
-            await QuestaoService.deletar(req.params.id, req.user);
-            res.status(204).send();
-        } catch (erro) {
-            tratarErro(res, erro);
+            const questao = await QuestaoService.atualizar(req.params.idQuestao, req.body, req.user);
+            res.status(200).json(questao);
+        } catch (error) {
+            next(error);
+        }
+    },
+
+    deletar: async (req, res, next) => {
+        try {
+            await QuestaoService.deletar(req.params.idQuestao, req.user);
+            res.status(204).end();
+        } catch (error) {
+            next(error);
         }
     }
 };

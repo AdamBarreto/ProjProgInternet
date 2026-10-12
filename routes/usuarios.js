@@ -16,7 +16,6 @@ router.post('/logout', verifyJWT, LoginController.logout);
 router.get('/profile', verifyJWT, (req, res) => {
     res.status(200).json({ usuario: req.user });
 });
-router.get('/', UsuarioApiController.listar);
 router.get('/usuario', verifyJWT, requireRole(['admin']), UsuarioApiController.listar);
 router.get('/aluno', verifyJWT, requireRole(['admin']), UsuarioApiController.listarAlunos);
 router.get('/docente', verifyJWT, requireRole(['admin']), UsuarioApiController.listarDocentes);

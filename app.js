@@ -3,10 +3,9 @@ const app = express();
 app.use(express.json());
 
 const questaoRoutes = require('./routes/questaoRoutes.js');
-app.use('/questoes', questaoRoutes);
+app.use('/usuario/:id/questoes', questaoRoutes);
 
 const usuariosRoutes = require('./routes/usuarios');
-
 app.use(usuariosRoutes);
 
 app.use((err, req, res, next) => {

@@ -1,6 +1,11 @@
 @baseUrl = http://localhost:3000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkYW1fc2IiLCJyb2xlIjoiZG9jZW50ZSIsImlhdCI6MTc5MTc1OTkwMSwiZXhwIjoxNzkxNzYxMTAxfQ.SEYBQlpCm_Q9XHxES5AXlN1L5CTo68WX4F-RwbixQNo
-### Login do docente (copie o token da resposta)
+@docenteUsername = adam_sb
+@docenteSenha = 123456
+@token = {{loginDocente.response.body.$.token}}
+@idQuestao = 8
+
+### Autenticar com uma conta docente existente
+# @name loginDocente
 POST {{baseUrl}}/login
 Content-Type: application/json
 
@@ -10,62 +15,49 @@ Content-Type: application/json
 }
 
 ### Criar questão -> 201
-POST {{baseUrl}}/questoes
+POST {{baseUrl}}/usuario/{{docenteUsername}}/questoes
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "enunciado": "Qual é a capital do Brasil?",
+  "enunciado": "Qual a maior montanha do mundo?",
   "etiqueta": "Geografia",
   "tipo": "multipla_escolha",
   "gabarito": 2,
   "alternativas": [
-    "São Paulo",
-    "Brasília",
-    "Rio de Janeiro",
-    "Salvador"
+    "Monte Aconcágua",
+    "Monte Everest",
+    "Monte Kilimanjaro",
+    "Monte Fuji"
   ]
 }
 
+### Exibir a questão criada -> 200
+GET {{baseUrl}}/usuario/{{docenteUsername}}/questoes/{{idQuestao}}
+Authorization: Bearer {{token}}
 
+### Listar questões do docente autenticado -> 200
+GET {{baseUrl}}/usuario/{{docenteUsername}}/questoes
+Authorization: Bearer {{token}}
 
-### Dados inválidos -> 400
-POST {{baseUrl}}/questoes
+### Substituir questão e alternativas -> 200
+PUT {{baseUrl}}/usuario/{{docenteUsername}}/questoes/{{idQuestao}}
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "enunciado": "x"
+  "enunciado": "Qual a montanha mais alta do mundo? (revisada)",
+  "etiqueta": "Geografia",
+  "tipo": "multipla_escolha",
+  "gabarito": 2,
+  "alternativas": [
+    "Monte Aconcágua",
+    "Monte Everest",
+    "Monte Kilimanjaro",
+    "Monte Fuji"
+  ]
 }
 
-### Token de aluno -> 403
-POST {{baseUrl}}/questoes
-Content-Type: application/json
-Authorization: Bearer COLE_TOKEN_DE_ALUNO
-
-{
-  "enunciado": "Qual é a capital do Brasil?",
-  "tipo": "objetiva"
-}
-
-### Sem token -> 401
-GET {{baseUrl}}/questoes
-
-### Listar minhas questões -> 200
-GET {{baseUrl}}/questoes
-Authorization: Bearer {{token}}
-
-### Atualizar -> 200 (404 se o id não existir, 403 se for de outro docente)
-PUT {{baseUrl}}/questoes/1
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-{
-  "enunciado": "Qual é a capital do Brasil? (revisada)",
-  "etiqueta": "geografia",
-  "tipo": "objetiva"
-}
-
-### Excluir -> 204
-DELETE {{baseUrl}}/questoes/1
+### Excluir a questão criada -> 204
+DELETE {{baseUrl}}/usuario/{{docenteUsername}}/questoes/{{idQuestao}}
 Authorization: Bearer {{token}}
