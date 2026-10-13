@@ -7,18 +7,15 @@ const ResultadoRepositorio = {
         const saida = await pool.query(
             `INSERT INTO resultado (id_quiz, id_aluno, acertos, tempo_conclusao)
              VALUES ($1, $2, $3, $4)
-             RETURNING id_quiz, id_aluno`,
+             RETURNING *`,
             [id_quiz, id_aluno, acertos, tempo_conclusao]
         );
 
-        return {
-            id_quiz: saida.rows[0].id_quiz,
-            id_aluno: saida.rows[0].id_aluno
-        };
+        return saida.rows[0];
     },
 
     //para o professor (tenho que ajeitar)
-    buscarByQuiz: async (id_quiz) => {
+    listarByQuiz: async (id_quiz) => {
         const resultado = await pool.query(
             `SELECT r.id_aluno, a.nome_completo, r.acertos, r.tempo_conclusao
              FROM resultado r
@@ -32,7 +29,7 @@ const ResultadoRepositorio = {
     },
 
     //resultados do aluno em quizes
-    buscarByAluno: async (id_aluno) => {
+    listarByAluno: async (id_aluno) => {
         const resultado = await pool.query(
             'SELECT * FROM resultado WHERE id_aluno = $1',
             [id_aluno]
@@ -41,7 +38,7 @@ const ResultadoRepositorio = {
         return resultado.rows;
     },
 
-    buscarByQuizByAluno: async (id_quiz, id_aluno) => {
+    buscarById: async (id_quiz, id_aluno) => {
         const resultado = await pool.query(
             `SELECT r.acertos, r.tempo_conclusao, q.disciplina, q.quantidade_questoes
             FROM resultado r
@@ -51,6 +48,15 @@ const ResultadoRepositorio = {
         );
 
         return resultado.rows[0];
+    },
+
+    deletar: async (id_quiz, id_aluno) => {
+        const resultado = await pool.query(
+            'DELETE FROM resultado WHERE id_quiz = $1 AND id_aluno = $2',
+            [id_quiz, id_aluno]
+        );
+
+        return resultado.rowCount > 0;
     }
 
 };

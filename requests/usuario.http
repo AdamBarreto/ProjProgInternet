@@ -7,17 +7,17 @@
 @adminSenha = senha_do_admin
 @adminToken = {{loginAdmin.response.body.$.token}}
 
-### Criar usuário docente -> 201
+### Criar usuário aluno -> 201
 # @name criarUsuario
 POST {{baseUrl}}/usuario
 Content-Type: application/json
 
 {
-  "nome": "Usuário de Teste",
-  "username": "{{username}}",
-  "email": "{{email}}",
-  "senha": "{{senha}}",
-  "role": "docente"
+  "nome": "João Batista",
+  "username": "joao_btt",
+  "email": "joao@gmail.com",
+  "senha": "123456",
+  "role": "aluno"
 }
 
 ### Consultar perfil do usuário autenticado -> 200

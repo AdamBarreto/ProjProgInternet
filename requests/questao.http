@@ -14,21 +14,21 @@ Content-Type: application/json
   "senha": "123456"
 }
 
-### Criar questão -> 201
+### Criar questão
 POST {{baseUrl}}/usuario/{{docenteUsername}}/questoes
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "enunciado": "Qual a maior montanha do mundo?",
-  "etiqueta": "Geografia",
+  "enunciado": "Qual a maior estátua do mundo?",
+  "etiqueta": "Conhecimentos Gerais",
   "tipo": "multipla_escolha",
-  "gabarito": 2,
+  "gabarito": 3,
   "alternativas": [
-    "Monte Aconcágua",
-    "Monte Everest",
-    "Monte Kilimanjaro",
-    "Monte Fuji"
+    "Estátua da Liberdade",
+    "Cristo Redentor",
+    "Estátua da Unidade",
+    "Estátua de Buda do Templo da Primavera"
   ]
 }
 

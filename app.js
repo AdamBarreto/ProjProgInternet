@@ -5,6 +5,12 @@ app.use(express.json());
 const questaoRoutes = require('./routes/questaoRoutes.js');
 app.use('/usuario/:id/questoes', questaoRoutes);
 
+const resultadoRoutes = require('./routes/resultadoRoutes.js');
+app.use('/usuario/:id', resultadoRoutes);
+
+const quizRouter = require('./routes/quizRoutes.js');
+app.use('/usuario/:id/quizzes', quizRouter);
+
 const usuariosRoutes = require('./routes/usuarios');
 app.use(usuariosRoutes);
 

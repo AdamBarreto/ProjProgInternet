@@ -1,0 +1,56 @@
+@baseUrl = http://localhost:3000
+@docenteUsername = adam_sb
+@docenteSenha = 123456
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkYW1fc2IiLCJyb2xlIjoiZG9jZW50ZSIsImlhdCI6MTc5MTg1NjE4NCwiZXhwIjoxNzkxODU3Mzg0fQ.kEIQ_PdIOYjoET0kOVi8acyDeE_PAMYvkdyGp1VEMZ4
+@idQuiz = {{criarQuiz.response.body.$.id_quiz}}
+@idQuestao = 12
+
+### Autenticar com uma conta docente existente
+# @name loginDocente
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "username": "{{docenteUsername}}",
+  "senha": "{{docenteSenha}}"
+}
+
+### Criar quiz
+# @name criarQuiz
+POST {{baseUrl}}/usuario/{{docenteUsername}}/quizzes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "disciplina": "Geografia",
+  "quantidade_questoes": 2
+}
+
+### Listar quizzes do docente
+GET {{baseUrl}}/usuario/{{docenteUsername}}/quizzes
+Authorization: Bearer {{token}}
+
+### Exibir quiz
+GET {{baseUrl}}/usuario/{{docenteUsername}}/quizzes/{{idQuiz}}
+Authorization: Bearer {{token}}
+
+### Adicionar questão no quiz
+POST {{baseUrl}}/usuario/{{docenteUsername}}/quizzes/{{idQuiz}}/questoes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "id_questao": {{idQuestao}}
+}
+
+### Listar questões do quiz
+GET {{baseUrl}}/usuario/{{docenteUsername}}/quizzes/{{idQuiz}}/questoes
+Authorization: Bearer {{token}}
+
+### Remover questão do quiz
+DELETE {{baseUrl}}/usuario/{{docenteUsername}}/quizzes/{{idQuiz}}/questoes/{{idQuestao}}
+Authorization: Bearer {{token}}
+
+### Excluir quiz
+DELETE {{baseUrl}}/usuario/{{docenteUsername}}/quizzes/{{idQuiz}}
+Authorization: Bearer {{token}}

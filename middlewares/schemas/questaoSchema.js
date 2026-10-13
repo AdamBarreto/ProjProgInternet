@@ -1,4 +1,4 @@
-const criarQuestaoSchema = {
+const questaoSchema = {
   type: 'object',
   properties: {
     enunciado: { type: 'string', minLength: 5 },
@@ -15,4 +15,4 @@ const criarQuestaoSchema = {
   additionalProperties: false
 };
 
-module.exports = criarQuestaoSchema;
+module.exports = questaoSchema;

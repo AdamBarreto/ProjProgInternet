@@ -19,6 +19,15 @@ const QuizRepositorio = {
         return resultado.rows;
     },
 
+    buscarById: async (id_quiz) => {
+        const resultado = await pool.query(
+            'SELECT * FROM quiz WHERE id_quiz = $1',
+            [id_quiz]
+        );
+
+        return resultado.rows[0];
+    },
+
     listarByDocente: async (id_docente) => {
         const resultado = await pool.query(
             'SELECT * FROM quiz WHERE id_docente = $1 ORDER BY id_quiz DESC',

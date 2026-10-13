@@ -3,7 +3,7 @@ const router = express.Router({ mergeParams: true });
 
 const { QuestaoApiController } = require('../controllers/questaoController');
 const { validar } = require('../middlewares/validacao');
-const criarQuestaoSchema = require('../middlewares/questaoSchema');
+const questaoSchema = require('../middlewares/schemas/questaoSchema');
 const { verifyJWT, requireRole } = require('../middlewares/jwt');
 
 router.use(verifyJWT, requireRole(['docente']), (req, res, next) => {
@@ -13,10 +13,10 @@ router.use(verifyJWT, requireRole(['docente']), (req, res, next) => {
     next();
 });
 
-router.post('/', validar(criarQuestaoSchema), QuestaoApiController.criar);
+router.post('/', validar(questaoSchema), QuestaoApiController.criar);
 router.get('/', QuestaoApiController.listarByDocente);
 router.get('/:idQuestao', QuestaoApiController.buscarById);
-router.put('/:idQuestao', validar(criarQuestaoSchema), QuestaoApiController.atualizar);
+router.put('/:idQuestao', validar(questaoSchema), QuestaoApiController.atualizar);
 router.delete('/:idQuestao', QuestaoApiController.deletar);
 
 module.exports = router;

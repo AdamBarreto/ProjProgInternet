@@ -1,0 +1,43 @@
+@baseUrl = http://localhost:3000
+@alunoUsername = joao_btt
+@alunoSenha = 123456
+@idQuiz = 1
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvYW9fYnR0Iiwicm9sZSI6ImFsdW5vIiwiaWF0IjoxNzkxODU2ODIxLCJleHAiOjE3OTE4NTgwMjF9.-0IrQ4VMpN65u2XAhnm8USFOyP1F72okYlzgA0R_vSk
+
+### Entrar com uma conta de aluno existente
+# @name loginAluno
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "username": "{{alunoUsername}}",
+  "senha": "{{alunoSenha}}"
+}
+
+### Verificar o usuário autenticado (role deve ser "aluno")
+GET {{baseUrl}}/profile
+Authorization: Bearer {{token}}
+
+### Registrar resultado do aluno no quiz
+POST {{baseUrl}}/usuario/{{alunoUsername}}/quizzes/{{idQuiz}}/resultado
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "id_quiz": {{idQuiz}},
+  "id_aluno": "{{alunoUsername}}",
+  "acertos": 1,
+  "tempo_conclusao": 42.5
+}
+
+### Listar resultados do aluno
+GET {{baseUrl}}/usuario/{{alunoUsername}}/resultado
+Authorization: Bearer {{token}}
+
+### Consultar o resultado do aluno neste quiz
+GET {{baseUrl}}/usuario/{{alunoUsername}}/quizzes/{{idQuiz}}/resultado
+Authorization: Bearer {{token}}
+
+### Excluir o resultado do aluno neste quiz
+DELETE {{baseUrl}}/usuario/{{alunoUsername}}/quizzes/{{idQuiz}}/resultado
+Authorization: Bearer {{token}}
