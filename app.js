@@ -1,6 +1,15 @@
 const express = require('express');
 const app = express();
+const path = require('path');
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(express.static("public"));
+app.use("/public", express.static("public"));
+
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
 const questaoRoutes = require('./routes/questaoRoutes.js');
 app.use('/usuario/:id/questoes', questaoRoutes);
@@ -11,7 +20,7 @@ app.use('/usuario/:id', resultadoRoutes);
 const quizRouter = require('./routes/quizRoutes.js');
 app.use('/usuario/:id/quizzes', quizRouter);
 
-const usuariosRoutes = require('./routes/usuarios');
+const usuariosRoutes = require('./routes/usuarioRoutes');
 app.use(usuariosRoutes);
 
 app.use((err, req, res, next) => {
@@ -25,6 +34,10 @@ app.use((err, req, res, next) => {
     }
 
     res.status(status).json({ erro: status >= 500 ? 'Erro interno do servidor.' : err.message });
+});
+
+app.get('/cadastro', (req, res) => {
+    res.render('cadastro');
 });
 
 app.listen(3000, () => {

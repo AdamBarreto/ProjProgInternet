@@ -5,18 +5,15 @@
 // Apenas roda o que for da página de Cadastro
 if (document.getElementById('formCadastro')) {
     document.getElementById('formCadastro').addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        if (validarCadastro()) {
-            alert("Cadastro realizado com sucesso!");
-        } else {
+        if (!validarCadastro()) {
+            event.preventDefault();
             alert("Corrija os erros.");
         }
     });
 
     document.getElementById('nome').addEventListener('blur', validarNome);
-    document.getElementById('usuario').addEventListener('blur', validarUsuario);
-    document.getElementById('perfil').addEventListener('blur', validarPerfil);
+    document.getElementById('username').addEventListener('blur', validarUsuario);
+    document.getElementById('role').addEventListener('blur', validarPerfil);
     document.getElementById('email').addEventListener('blur', validarEmail);
     document.getElementById('senha').addEventListener('blur', validarSenha);
     document.getElementById('confirma-senha').addEventListener('blur', validarConfirmaSenha);
@@ -39,7 +36,7 @@ function validarNome() {
 }
 
 function validarPerfil() {
-    const campo = document.getElementById('perfil');
+    const campo = document.getElementById('role');
     const nome = campo.value;
     const erro = document.getElementById('perfilErro');
 
@@ -55,7 +52,7 @@ function validarPerfil() {
 }
 
 function validarUsuario() {
-    const campo = document.getElementById('usuario');
+    const campo = document.getElementById('username');
     const usuario = campo.value;
     const erro = document.getElementById('usuarioErro');
 

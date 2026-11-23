@@ -9,7 +9,7 @@
 
 ### Criar usuário aluno -> 201
 # @name criarUsuario
-POST {{baseUrl}}/usuario
+POST {{baseUrl}}/usuario/cadastro
 Content-Type: application/json
 
 {

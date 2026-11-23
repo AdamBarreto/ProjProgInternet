@@ -9,13 +9,14 @@ const { cadastroUsuarioSchema, loginSchema, atualizarUsuarioSchema } = require('
 
 const { verifyJWT, verifyAuth, requireRole } = require('../middlewares/jwt');
 
-router.post('/usuario', validar(cadastroUsuarioSchema), UsuarioApiController.criar);
+router.post('/usuario/cadastro', validar(cadastroUsuarioSchema), UsuarioApiController.criar);
 router.post('/login', validar(loginSchema), LoginController.login);
 router.post('/logout', verifyJWT, LoginController.logout);
 
 router.get('/profile', verifyJWT, (req, res) => {
     res.status(200).json({ usuario: req.user });
 });
+router.get('/verusuarios', UsuarioApiController.listar);
 router.get('/usuario', verifyJWT, requireRole(['admin']), UsuarioApiController.listar);
 router.get('/aluno', verifyJWT, requireRole(['admin']), UsuarioApiController.listarAlunos);
 router.get('/docente', verifyJWT, requireRole(['admin']), UsuarioApiController.listarDocentes);
