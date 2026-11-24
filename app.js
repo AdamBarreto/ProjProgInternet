@@ -39,6 +39,9 @@ app.use((err, req, res, next) => {
 app.get('/cadastro', (req, res) => {
     res.render('cadastro');
 });
+app.get('/index', (req, res) => {
+    res.render('index');
+})
 
 app.listen(3000, () => {
     console.log('Servidor iniciado na porta 3000')

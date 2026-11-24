@@ -12,10 +12,9 @@ const UsuarioApiController = {
         try {
             const dados = req.body;
             const usuarioNovo = await UsuarioService.criar(dados);
-            res.status(201).json({
-                token: usuarioNovo.token,
-                usuario: semSenha(usuarioNovo.usuario)
-            });
+            const token = usuarioNovo.token
+            const usuario = semSenha(usuarioNovo.usuario)
+            res.status(201).redirect("/index");
         } catch (error) {
             next(error);
         }
